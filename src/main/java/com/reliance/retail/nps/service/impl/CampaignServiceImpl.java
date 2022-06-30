@@ -3,7 +3,9 @@ package com.reliance.retail.nps.service.impl;
 import com.reliance.retail.nps.domain.Campaign;
 import com.reliance.retail.nps.repository.CampaignRepository;
 import com.reliance.retail.nps.service.CampaignService;
+import com.reliance.retail.nps.service.QuestionService;
 import com.reliance.retail.nps.service.dto.CampaignDTO;
+import com.reliance.retail.nps.service.dto.CampaignDetailDTO;
 import com.reliance.retail.nps.service.mapper.CampaignMapper;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,9 +32,12 @@ public class CampaignServiceImpl implements CampaignService {
 
     private final CampaignMapper campaignMapper;
 
-    public CampaignServiceImpl(CampaignRepository campaignRepository, CampaignMapper campaignMapper) {
+    private final QuestionService questionService;
+
+    public CampaignServiceImpl(CampaignRepository campaignRepository, CampaignMapper campaignMapper, QuestionService questionService) {
         this.campaignRepository = campaignRepository;
         this.campaignMapper = campaignMapper;
+        this.questionService  = questionService;
     }
 
     @Override
@@ -85,6 +90,21 @@ public class CampaignServiceImpl implements CampaignService {
             .filter(campaign -> campaign.getUserCampaign() == null)
             .map(campaignMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    @Override
+    public Optional<CampaignDetailDTO> findOneById(Long id) {
+        log.debug("Request to get Campaign By Id: {}", id);
+        return campaignRepository
+            .findById(id)
+            .flatMap(campaign -> questionService.findQuestionByCampaignId(campaign.getId())
+                .map(questions -> {
+                    CampaignDetailDTO campaignDetails = new CampaignDetailDTO();
+                    campaignDetails.setCampaign(campaignMapper.toDto(campaign));
+                    campaignDetails.setQuestions(questions);
+                    return campaignDetails;
+                }));
+     //   return Optional.empty();
     }
 
     @Override
