@@ -1,15 +1,13 @@
 import dayjs from 'dayjs';
 import { ICampaign } from 'app/shared/model/campaign.model';
 
-export interface IUserCampaign {
+export interface ILink {
   id?: number;
   hashCode?: string;
-  attemptQuestionCount?: number | null;
-  eventId?: string | null;
-  eventType?: string | null;
+  userInfo?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
   campaign?: ICampaign | null;
 }
 
-export const defaultValue: Readonly<IUserCampaign> = {};
+export const defaultValue: Readonly<ILink> = {};

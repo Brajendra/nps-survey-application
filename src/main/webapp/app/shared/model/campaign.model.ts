@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { ILink } from 'app/shared/model/link.model';
 import { IQuestion } from 'app/shared/model/question.model';
 import { IUserCampaign } from 'app/shared/model/user-campaign.model';
 import { ActorType } from 'app/shared/model/enumerations/actor-type.model';
@@ -17,6 +18,7 @@ export interface ICampaign {
   actor?: ActorType | null;
   eventType?: EventType | null;
   channel?: ChannelType | null;
+  links?: ILink[] | null;
   questions?: IQuestion[] | null;
   userCampaign?: IUserCampaign | null;
 }
