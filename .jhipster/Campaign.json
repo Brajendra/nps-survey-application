@@ -1,0 +1,74 @@
+{
+  "applications": ["NPSSurvey"],
+  "changelogDate": "20220630094044",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "campaign",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "isActive",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "startDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "endDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "actor",
+      "fieldType": "ActorType",
+      "fieldValues": "Customer,Retailer"
+    },
+    {
+      "fieldName": "eventType",
+      "fieldType": "EventType",
+      "fieldValues": "Payment,Delivery,Cancel,ReturnPickup,ReturnReceive,Refund"
+    },
+    {
+      "fieldName": "channel",
+      "fieldType": "ChannelType",
+      "fieldValues": "SMS,Email,WhatsApp"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Campaign",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "question",
+      "otherEntityRelationshipName": "campaign",
+      "relationshipName": "question",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "userCampaign",
+      "otherEntityRelationshipName": "campaign",
+      "ownerSide": false,
+      "relationshipName": "userCampaign",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}
