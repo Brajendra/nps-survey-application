@@ -89,10 +89,10 @@ export const UserCampaignUpdate = (props: RouteComponentProps<{ id: string }>) =
                 />
               ) : null}
               <ValidatedField
-                label={translate('npsSurveyApp.userCampaign.hashCode')}
-                id="user-campaign-hashCode"
-                name="hashCode"
-                data-cy="hashCode"
+                label={translate('npsSurveyApp.userCampaign.userId')}
+                id="user-campaign-userId"
+                name="userId"
+                data-cy="userId"
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },

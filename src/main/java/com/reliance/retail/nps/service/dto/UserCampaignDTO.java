@@ -13,7 +13,7 @@ public class UserCampaignDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private String hashCode;
+    private String userId;
 
     private Integer attemptQuestionCount;
 
@@ -35,12 +35,12 @@ public class UserCampaignDTO implements Serializable {
         this.id = id;
     }
 
-    public String getHashCode() {
-        return hashCode;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setHashCode(String hashCode) {
-        this.hashCode = hashCode;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public Integer getAttemptQuestionCount() {
@@ -117,7 +117,7 @@ public class UserCampaignDTO implements Serializable {
     public String toString() {
         return "UserCampaignDTO{" +
             "id=" + getId() +
-            ", hashCode='" + getHashCode() + "'" +
+            ", userId='" + getUserId() + "'" +
             ", attemptQuestionCount=" + getAttemptQuestionCount() +
             ", eventId='" + getEventId() + "'" +
             ", eventType='" + getEventType() + "'" +

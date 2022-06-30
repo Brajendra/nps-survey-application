@@ -25,8 +25,8 @@ public class UserCampaign implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "hash_code", nullable = false)
-    private String hashCode;
+    @Column(name = "user_id", nullable = false)
+    private String userId;
 
     @Column(name = "attempt_question_count")
     private Integer attemptQuestionCount;
@@ -43,7 +43,7 @@ public class UserCampaign implements Serializable {
     @Column(name = "updated_at")
     private LocalDate updatedAt;
 
-    @JsonIgnoreProperties(value = { "links", "questions", "userCampaign" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "questions", "userCampaign" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private Campaign campaign;
@@ -63,17 +63,17 @@ public class UserCampaign implements Serializable {
         this.id = id;
     }
 
-    public String getHashCode() {
-        return this.hashCode;
+    public String getUserId() {
+        return this.userId;
     }
 
-    public UserCampaign hashCode(String hashCode) {
-        this.setHashCode(hashCode);
+    public UserCampaign userId(String userId) {
+        this.setUserId(userId);
         return this;
     }
 
-    public void setHashCode(String hashCode) {
-        this.hashCode = hashCode;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public Integer getAttemptQuestionCount() {
@@ -178,7 +178,7 @@ public class UserCampaign implements Serializable {
     public String toString() {
         return "UserCampaign{" +
             "id=" + getId() +
-            ", hashCode='" + getHashCode() + "'" +
+            ", userId='" + getUserId() + "'" +
             ", attemptQuestionCount=" + getAttemptQuestionCount() +
             ", eventId='" + getEventId() + "'" +
             ", eventType='" + getEventType() + "'" +

@@ -32,12 +32,6 @@ entity Campaign {
     createdBy String
 }
 
-entity Link {
-	hashCode String required,
-    userInfo String,
-    createdAt  LocalDate,
-    updatedAt  LocalDate,
-}
 
 enum ChannelType {
     SMS,
@@ -81,11 +75,6 @@ entity Answer {
 }
 
 relationship OneToMany {
-    Campaign{link} to Link{campaign}
-}
-
-
-relationship OneToMany {
     Campaign{question} to Question{campaign}
 }
 
@@ -94,7 +83,7 @@ relationship OneToMany {
 }
 
 entity UserCampaign {
-    hashCode String required,
+    userId String required,
     attemptQuestionCount Integer,
     eventId String,
     eventType String,

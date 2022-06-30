@@ -18,7 +18,7 @@
         "title": "User Campaign"
       },
       "id": "ID",
-      "hashCode": "Hash Code",
+      "userId": "User Id",
       "attemptQuestionCount": "Attempt Question Count",
       "eventId": "Event Id",
       "eventType": "Event Type",

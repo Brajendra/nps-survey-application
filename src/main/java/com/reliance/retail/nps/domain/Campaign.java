@@ -65,11 +65,6 @@ public class Campaign implements Serializable {
 
     @OneToMany(mappedBy = "campaign")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "campaign" }, allowSetters = true)
-    private Set<Link> links = new HashSet<>();
-
-    @OneToMany(mappedBy = "campaign")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "answers", "userAnswer", "campaign" }, allowSetters = true)
     private Set<Question> questions = new HashSet<>();
 
@@ -220,37 +215,6 @@ public class Campaign implements Serializable {
 
     public void setChannel(ChannelType channel) {
         this.channel = channel;
-    }
-
-    public Set<Link> getLinks() {
-        return this.links;
-    }
-
-    public void setLinks(Set<Link> links) {
-        if (this.links != null) {
-            this.links.forEach(i -> i.setCampaign(null));
-        }
-        if (links != null) {
-            links.forEach(i -> i.setCampaign(this));
-        }
-        this.links = links;
-    }
-
-    public Campaign links(Set<Link> links) {
-        this.setLinks(links);
-        return this;
-    }
-
-    public Campaign addLink(Link link) {
-        this.links.add(link);
-        link.setCampaign(this);
-        return this;
-    }
-
-    public Campaign removeLink(Link link) {
-        this.links.remove(link);
-        link.setCampaign(null);
-        return this;
     }
 
     public Set<Question> getQuestions() {
