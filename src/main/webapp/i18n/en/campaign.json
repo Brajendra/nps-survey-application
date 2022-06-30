@@ -28,7 +28,7 @@
       "actor": "Actor",
       "eventType": "Event Type",
       "channel": "Channel",
-      "link": "Link",
+      "campaignLink": "Campaign Link",
       "question": "Question",
       "userCampaign": "User Campaign"
     }

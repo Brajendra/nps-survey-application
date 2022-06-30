@@ -10,21 +10,21 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { ICampaign } from 'app/shared/model/campaign.model';
 import { getEntities as getCampaigns } from 'app/entities/campaign/campaign.reducer';
-import { IUserCampaign } from 'app/shared/model/user-campaign.model';
-import { getEntity, updateEntity, createEntity, reset } from './user-campaign.reducer';
+import { ICampaignLink } from 'app/shared/model/campaign-link.model';
+import { getEntity, updateEntity, createEntity, reset } from './campaign-link.reducer';
 
-export const UserCampaignUpdate = (props: RouteComponentProps<{ id: string }>) => {
+export const CampaignLinkUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
   const campaigns = useAppSelector(state => state.campaign.entities);
-  const userCampaignEntity = useAppSelector(state => state.userCampaign.entity);
-  const loading = useAppSelector(state => state.userCampaign.loading);
-  const updating = useAppSelector(state => state.userCampaign.updating);
-  const updateSuccess = useAppSelector(state => state.userCampaign.updateSuccess);
+  const campaignLinkEntity = useAppSelector(state => state.campaignLink.entity);
+  const loading = useAppSelector(state => state.campaignLink.loading);
+  const updating = useAppSelector(state => state.campaignLink.updating);
+  const updateSuccess = useAppSelector(state => state.campaignLink.updateSuccess);
   const handleClose = () => {
-    props.history.push('/user-campaign');
+    props.history.push('/campaign-link');
   };
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export const UserCampaignUpdate = (props: RouteComponentProps<{ id: string }>) =
 
   const saveEntity = values => {
     const entity = {
-      ...userCampaignEntity,
+      ...campaignLinkEntity,
       ...values,
       campaign: campaigns.find(it => it.id.toString() === values.campaign.toString()),
     };
@@ -59,16 +59,16 @@ export const UserCampaignUpdate = (props: RouteComponentProps<{ id: string }>) =
     isNew
       ? {}
       : {
-          ...userCampaignEntity,
-          campaign: userCampaignEntity?.campaign?.id,
+          ...campaignLinkEntity,
+          campaign: campaignLinkEntity?.campaign?.id,
         };
 
   return (
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2 id="npsSurveyApp.userCampaign.home.createOrEditLabel" data-cy="UserCampaignCreateUpdateHeading">
-            <Translate contentKey="npsSurveyApp.userCampaign.home.createOrEditLabel">Create or edit a UserCampaign</Translate>
+          <h2 id="npsSurveyApp.campaignLink.home.createOrEditLabel" data-cy="CampaignLinkCreateUpdateHeading">
+            <Translate contentKey="npsSurveyApp.campaignLink.home.createOrEditLabel">Create or edit a CampaignLink</Translate>
           </h2>
         </Col>
       </Row>
@@ -83,14 +83,14 @@ export const UserCampaignUpdate = (props: RouteComponentProps<{ id: string }>) =
                   name="id"
                   required
                   readOnly
-                  id="user-campaign-id"
+                  id="campaign-link-id"
                   label={translate('global.field.id')}
                   validate={{ required: true }}
                 />
               ) : null}
               <ValidatedField
-                label={translate('npsSurveyApp.userCampaign.code')}
-                id="user-campaign-code"
+                label={translate('npsSurveyApp.campaignLink.code')}
+                id="campaign-link-code"
                 name="code"
                 data-cy="code"
                 type="text"
@@ -99,45 +99,31 @@ export const UserCampaignUpdate = (props: RouteComponentProps<{ id: string }>) =
                 }}
               />
               <ValidatedField
-                label={translate('npsSurveyApp.userCampaign.attemptQuestionCount')}
-                id="user-campaign-attemptQuestionCount"
-                name="attemptQuestionCount"
-                data-cy="attemptQuestionCount"
+                label={translate('npsSurveyApp.campaignLink.userInfo')}
+                id="campaign-link-userInfo"
+                name="userInfo"
+                data-cy="userInfo"
                 type="text"
               />
               <ValidatedField
-                label={translate('npsSurveyApp.userCampaign.eventId')}
-                id="user-campaign-eventId"
-                name="eventId"
-                data-cy="eventId"
-                type="text"
-              />
-              <ValidatedField
-                label={translate('npsSurveyApp.userCampaign.eventType')}
-                id="user-campaign-eventType"
-                name="eventType"
-                data-cy="eventType"
-                type="text"
-              />
-              <ValidatedField
-                label={translate('npsSurveyApp.userCampaign.createdAt')}
-                id="user-campaign-createdAt"
+                label={translate('npsSurveyApp.campaignLink.createdAt')}
+                id="campaign-link-createdAt"
                 name="createdAt"
                 data-cy="createdAt"
                 type="date"
               />
               <ValidatedField
-                label={translate('npsSurveyApp.userCampaign.updatedAt')}
-                id="user-campaign-updatedAt"
+                label={translate('npsSurveyApp.campaignLink.updatedAt')}
+                id="campaign-link-updatedAt"
                 name="updatedAt"
                 data-cy="updatedAt"
                 type="date"
               />
               <ValidatedField
-                id="user-campaign-campaign"
+                id="campaign-link-campaign"
                 name="campaign"
                 data-cy="campaign"
-                label={translate('npsSurveyApp.userCampaign.campaign')}
+                label={translate('npsSurveyApp.campaignLink.campaign')}
                 type="select"
               >
                 <option value="" key="0" />
@@ -149,7 +135,7 @@ export const UserCampaignUpdate = (props: RouteComponentProps<{ id: string }>) =
                     ))
                   : null}
               </ValidatedField>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/user-campaign" replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/campaign-link" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
@@ -170,4 +156,4 @@ export const UserCampaignUpdate = (props: RouteComponentProps<{ id: string }>) =
   );
 };
 
-export default UserCampaignUpdate;
+export default CampaignLinkUpdate;

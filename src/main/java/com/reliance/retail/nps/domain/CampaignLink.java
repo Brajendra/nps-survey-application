@@ -9,12 +9,12 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A Link.
+ * A CampaignLink.
  */
 @Entity
-@Table(name = "link")
+@Table(name = "campaign_link")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Link implements Serializable {
+public class CampaignLink implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -25,8 +25,8 @@ public class Link implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "hash_code", nullable = false)
-    private String hashCode;
+    @Column(name = "code", nullable = false)
+    private String code;
 
     @Column(name = "user_info")
     private String userInfo;
@@ -47,7 +47,7 @@ public class Link implements Serializable {
         return this.id;
     }
 
-    public Link id(Long id) {
+    public CampaignLink id(Long id) {
         this.setId(id);
         return this;
     }
@@ -56,24 +56,24 @@ public class Link implements Serializable {
         this.id = id;
     }
 
-    public String getHashCode() {
-        return this.hashCode;
+    public String getCode() {
+        return this.code;
     }
 
-    public Link hashCode(String hashCode) {
-        this.setHashCode(hashCode);
+    public CampaignLink code(String code) {
+        this.setCode(code);
         return this;
     }
 
-    public void setHashCode(String hashCode) {
-        this.hashCode = hashCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getUserInfo() {
         return this.userInfo;
     }
 
-    public Link userInfo(String userInfo) {
+    public CampaignLink userInfo(String userInfo) {
         this.setUserInfo(userInfo);
         return this;
     }
@@ -86,7 +86,7 @@ public class Link implements Serializable {
         return this.createdAt;
     }
 
-    public Link createdAt(LocalDate createdAt) {
+    public CampaignLink createdAt(LocalDate createdAt) {
         this.setCreatedAt(createdAt);
         return this;
     }
@@ -99,7 +99,7 @@ public class Link implements Serializable {
         return this.updatedAt;
     }
 
-    public Link updatedAt(LocalDate updatedAt) {
+    public CampaignLink updatedAt(LocalDate updatedAt) {
         this.setUpdatedAt(updatedAt);
         return this;
     }
@@ -116,7 +116,7 @@ public class Link implements Serializable {
         this.campaign = campaign;
     }
 
-    public Link campaign(Campaign campaign) {
+    public CampaignLink campaign(Campaign campaign) {
         this.setCampaign(campaign);
         return this;
     }
@@ -128,10 +128,10 @@ public class Link implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Link)) {
+        if (!(o instanceof CampaignLink)) {
             return false;
         }
-        return id != null && id.equals(((Link) o).id);
+        return id != null && id.equals(((CampaignLink) o).id);
     }
 
     @Override
@@ -143,9 +143,9 @@ public class Link implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
-        return "Link{" +
+        return "CampaignLink{" +
             "id=" + getId() +
-            ", hashCode='" + getHashCode() + "'" +
+            ", code='" + getCode() + "'" +
             ", userInfo='" + getUserInfo() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +

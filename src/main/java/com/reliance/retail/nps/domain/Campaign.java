@@ -66,7 +66,7 @@ public class Campaign implements Serializable {
     @OneToMany(mappedBy = "campaign")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "campaign" }, allowSetters = true)
-    private Set<Link> links = new HashSet<>();
+    private Set<CampaignLink> campaignLinks = new HashSet<>();
 
     @OneToMany(mappedBy = "campaign")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -222,34 +222,34 @@ public class Campaign implements Serializable {
         this.channel = channel;
     }
 
-    public Set<Link> getLinks() {
-        return this.links;
+    public Set<CampaignLink> getCampaignLinks() {
+        return this.campaignLinks;
     }
 
-    public void setLinks(Set<Link> links) {
-        if (this.links != null) {
-            this.links.forEach(i -> i.setCampaign(null));
+    public void setCampaignLinks(Set<CampaignLink> campaignLinks) {
+        if (this.campaignLinks != null) {
+            this.campaignLinks.forEach(i -> i.setCampaign(null));
         }
-        if (links != null) {
-            links.forEach(i -> i.setCampaign(this));
+        if (campaignLinks != null) {
+            campaignLinks.forEach(i -> i.setCampaign(this));
         }
-        this.links = links;
+        this.campaignLinks = campaignLinks;
     }
 
-    public Campaign links(Set<Link> links) {
-        this.setLinks(links);
+    public Campaign campaignLinks(Set<CampaignLink> campaignLinks) {
+        this.setCampaignLinks(campaignLinks);
         return this;
     }
 
-    public Campaign addLink(Link link) {
-        this.links.add(link);
-        link.setCampaign(this);
+    public Campaign addCampaignLink(CampaignLink campaignLink) {
+        this.campaignLinks.add(campaignLink);
+        campaignLink.setCampaign(this);
         return this;
     }
 
-    public Campaign removeLink(Link link) {
-        this.links.remove(link);
-        link.setCampaign(null);
+    public Campaign removeCampaignLink(CampaignLink campaignLink) {
+        this.campaignLinks.remove(campaignLink);
+        campaignLink.setCampaign(null);
         return this;
     }
 

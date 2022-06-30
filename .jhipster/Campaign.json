@@ -57,9 +57,9 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "link",
+      "otherEntityName": "campaignLink",
       "otherEntityRelationshipName": "campaign",
-      "relationshipName": "link",
+      "relationshipName": "campaignLink",
       "relationshipType": "one-to-many"
     },
     {

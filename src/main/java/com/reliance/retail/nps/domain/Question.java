@@ -55,7 +55,7 @@ public class Question implements Serializable {
     private UserAnswers userAnswer;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "links", "questions", "userCampaign" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "campaignLinks", "questions", "userCampaign" }, allowSetters = true)
     private Campaign campaign;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
