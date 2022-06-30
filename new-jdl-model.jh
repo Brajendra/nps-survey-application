@@ -35,8 +35,8 @@ entity Campaign {
 entity Link {
 	hashCode String required,
     userInfo String,
-    createdAt LocalDate,
-    updatedAt LocalDate,
+    createdAt  LocalDate,
+    updatedAt  LocalDate,
 }
 
 enum ChannelType {
