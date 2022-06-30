@@ -1,0 +1,30 @@
+{
+  "npsSurveyApp": {
+    "userCampaign": {
+      "home": {
+        "title": "User Campaigns",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new User Campaign",
+        "createOrEditLabel": "Create or edit a User Campaign",
+        "notFound": "No User Campaigns found"
+      },
+      "created": "A new User Campaign is created with identifier {{ param }}",
+      "updated": "A User Campaign is updated with identifier {{ param }}",
+      "deleted": "A User Campaign is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete User Campaign {{ id }}?"
+      },
+      "detail": {
+        "title": "User Campaign"
+      },
+      "id": "ID",
+      "userId": "User Id",
+      "attemptQuestionCount": "Attempt Question Count",
+      "eventId": "Event Id",
+      "eventType": "Event Type",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "campaign": "Campaign"
+    }
+  }
+}

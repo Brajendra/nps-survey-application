@@ -1,0 +1,49 @@
+{
+  "applications": ["NPSSurvey"],
+  "changelogDate": "20220630094344",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "user_campaign",
+  "fields": [
+    {
+      "fieldName": "userId",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "attemptQuestionCount",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "eventId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "eventType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "UserCampaign",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "campaign",
+      "otherEntityRelationshipName": "userCampaign",
+      "ownerSide": true,
+      "relationshipName": "campaign",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}
