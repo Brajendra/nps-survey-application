@@ -57,6 +57,12 @@
   "readOnly": false,
   "relationships": [
     {
+      "otherEntityName": "link",
+      "otherEntityRelationshipName": "campaign",
+      "relationshipName": "link",
+      "relationshipType": "one-to-many"
+    },
+    {
       "otherEntityName": "question",
       "otherEntityRelationshipName": "campaign",
       "relationshipName": "question",

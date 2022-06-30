@@ -7,6 +7,7 @@ import Question from './question';
 import Answer from './answer';
 import UserCampaign from './user-campaign';
 import UserAnswers from './user-answers';
+import Link from './link';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 export default ({ match }) => {
@@ -19,6 +20,7 @@ export default ({ match }) => {
         <ErrorBoundaryRoute path={`${match.url}answer`} component={Answer} />
         <ErrorBoundaryRoute path={`${match.url}user-campaign`} component={UserCampaign} />
         <ErrorBoundaryRoute path={`${match.url}user-answers`} component={UserAnswers} />
+        <ErrorBoundaryRoute path={`${match.url}link`} component={Link} />
         {/* jhipster-needle-add-route-path - JHipster will add routes here */}
       </Switch>
     </div>

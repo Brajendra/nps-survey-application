@@ -12,6 +12,7 @@
         "answer": "Answer",
         "userCampaign": "User Campaign",
         "userAnswers": "User Answers",
+        "link": "Link",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
