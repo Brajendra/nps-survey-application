@@ -124,8 +124,8 @@ export const UserCampaign = (props: RouteComponentProps<{ url: string }>) => {
                   <th className="hand" onClick={sort('id')}>
                     <Translate contentKey="npsSurveyApp.userCampaign.id">ID</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th className="hand" onClick={sort('hashCode')}>
-                    <Translate contentKey="npsSurveyApp.userCampaign.hashCode">Hash Code</Translate> <FontAwesomeIcon icon="sort" />
+                  <th className="hand" onClick={sort('code')}>
+                    <Translate contentKey="npsSurveyApp.userCampaign.code">Code</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={sort('attemptQuestionCount')}>
                     <Translate contentKey="npsSurveyApp.userCampaign.attemptQuestionCount">Attempt Question Count</Translate>{' '}
@@ -157,7 +157,7 @@ export const UserCampaign = (props: RouteComponentProps<{ url: string }>) => {
                         {userCampaign.id}
                       </Button>
                     </td>
-                    <td>{userCampaign.hashCode}</td>
+                    <td>{userCampaign.code}</td>
                     <td>{userCampaign.attemptQuestionCount}</td>
                     <td>{userCampaign.eventId}</td>
                     <td>{userCampaign.eventType}</td>

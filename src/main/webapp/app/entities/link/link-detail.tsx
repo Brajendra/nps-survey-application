@@ -31,11 +31,11 @@ export const LinkDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{linkEntity.id}</dd>
           <dt>
-            <span id="hashCode">
-              <Translate contentKey="npsSurveyApp.link.hashCode">Hash Code</Translate>
+            <span id="code">
+              <Translate contentKey="npsSurveyApp.link.code">Code</Translate>
             </span>
           </dt>
-          <dd>{linkEntity.hashCode}</dd>
+          <dd>{linkEntity.code}</dd>
           <dt>
             <span id="userInfo">
               <Translate contentKey="npsSurveyApp.link.userInfo">User Info</Translate>

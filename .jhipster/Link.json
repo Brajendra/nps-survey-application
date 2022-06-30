@@ -6,7 +6,7 @@
   "entityTableName": "link",
   "fields": [
     {
-      "fieldName": "hashCode",
+      "fieldName": "code",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
     },

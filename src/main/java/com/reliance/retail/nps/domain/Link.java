@@ -25,8 +25,8 @@ public class Link implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "hash_code", nullable = false)
-    private String hashCode;
+    @Column(name = "code", nullable = false)
+    private String code;
 
     @Column(name = "user_info")
     private String userInfo;
@@ -56,17 +56,17 @@ public class Link implements Serializable {
         this.id = id;
     }
 
-    public String getHashCode() {
-        return this.hashCode;
+    public String getCode() {
+        return this.code;
     }
 
-    public Link hashCode(String hashCode) {
-        this.setHashCode(hashCode);
+    public Link code(String code) {
+        this.setCode(code);
         return this;
     }
 
-    public void setHashCode(String hashCode) {
-        this.hashCode = hashCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getUserInfo() {
@@ -145,7 +145,7 @@ public class Link implements Serializable {
     public String toString() {
         return "Link{" +
             "id=" + getId() +
-            ", hashCode='" + getHashCode() + "'" +
+            ", code='" + getCode() + "'" +
             ", userInfo='" + getUserInfo() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +

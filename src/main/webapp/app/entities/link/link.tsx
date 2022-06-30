@@ -124,8 +124,8 @@ export const Link = (props: RouteComponentProps<{ url: string }>) => {
                   <th className="hand" onClick={sort('id')}>
                     <Translate contentKey="npsSurveyApp.link.id">ID</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th className="hand" onClick={sort('hashCode')}>
-                    <Translate contentKey="npsSurveyApp.link.hashCode">Hash Code</Translate> <FontAwesomeIcon icon="sort" />
+                  <th className="hand" onClick={sort('code')}>
+                    <Translate contentKey="npsSurveyApp.link.code">Code</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={sort('userInfo')}>
                     <Translate contentKey="npsSurveyApp.link.userInfo">User Info</Translate> <FontAwesomeIcon icon="sort" />
@@ -150,7 +150,7 @@ export const Link = (props: RouteComponentProps<{ url: string }>) => {
                         {link.id}
                       </Button>
                     </td>
-                    <td>{link.hashCode}</td>
+                    <td>{link.code}</td>
                     <td>{link.userInfo}</td>
                     <td>{link.createdAt ? <TextFormat type="date" value={link.createdAt} format={APP_LOCAL_DATE_FORMAT} /> : null}</td>
                     <td>{link.updatedAt ? <TextFormat type="date" value={link.updatedAt} format={APP_LOCAL_DATE_FORMAT} /> : null}</td>

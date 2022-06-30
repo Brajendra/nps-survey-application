@@ -13,7 +13,7 @@ public class LinkDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private String hashCode;
+    private String code;
 
     private String userInfo;
 
@@ -31,12 +31,12 @@ public class LinkDTO implements Serializable {
         this.id = id;
     }
 
-    public String getHashCode() {
-        return hashCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setHashCode(String hashCode) {
-        this.hashCode = hashCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getUserInfo() {
@@ -97,7 +97,7 @@ public class LinkDTO implements Serializable {
     public String toString() {
         return "LinkDTO{" +
             "id=" + getId() +
-            ", hashCode='" + getHashCode() + "'" +
+            ", code='" + getCode() + "'" +
             ", userInfo='" + getUserInfo() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +

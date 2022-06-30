@@ -89,10 +89,10 @@ export const LinkUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 />
               ) : null}
               <ValidatedField
-                label={translate('npsSurveyApp.link.hashCode')}
-                id="link-hashCode"
-                name="hashCode"
-                data-cy="hashCode"
+                label={translate('npsSurveyApp.link.code')}
+                id="link-code"
+                name="code"
+                data-cy="code"
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },

@@ -14,7 +14,7 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="hash_code" type="varchar(255)">
+            <column name="code" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
             <column name="user_info" type="varchar(255)">
@@ -50,7 +50,7 @@
                   tableName="link"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
-            <column name="hash_code" type="string"/>
+            <column name="code" type="string"/>
             <column name="user_info" type="string"/>
             <column name="created_at" type="date"/>
             <column name="updated_at" type="date"/>

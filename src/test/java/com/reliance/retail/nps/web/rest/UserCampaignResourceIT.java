@@ -33,8 +33,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class UserCampaignResourceIT {
 
-    private static final String DEFAULT_HASH_CODE = "AAAAAAAAAA";
-    private static final String UPDATED_HASH_CODE = "BBBBBBBBBB";
+    private static final String DEFAULT_CODE = "AAAAAAAAAA";
+    private static final String UPDATED_CODE = "BBBBBBBBBB";
 
     private static final Integer DEFAULT_ATTEMPT_QUESTION_COUNT = 1;
     private static final Integer UPDATED_ATTEMPT_QUESTION_COUNT = 2;
@@ -79,7 +79,7 @@ class UserCampaignResourceIT {
      */
     public static UserCampaign createEntity(EntityManager em) {
         UserCampaign userCampaign = new UserCampaign()
-            .hashCode(DEFAULT_HASH_CODE)
+            .code(DEFAULT_CODE)
             .attemptQuestionCount(DEFAULT_ATTEMPT_QUESTION_COUNT)
             .eventId(DEFAULT_EVENT_ID)
             .eventType(DEFAULT_EVENT_TYPE)
@@ -96,7 +96,7 @@ class UserCampaignResourceIT {
      */
     public static UserCampaign createUpdatedEntity(EntityManager em) {
         UserCampaign userCampaign = new UserCampaign()
-            .hashCode(UPDATED_HASH_CODE)
+            .code(UPDATED_CODE)
             .attemptQuestionCount(UPDATED_ATTEMPT_QUESTION_COUNT)
             .eventId(UPDATED_EVENT_ID)
             .eventType(UPDATED_EVENT_TYPE)
@@ -126,7 +126,7 @@ class UserCampaignResourceIT {
         List<UserCampaign> userCampaignList = userCampaignRepository.findAll();
         assertThat(userCampaignList).hasSize(databaseSizeBeforeCreate + 1);
         UserCampaign testUserCampaign = userCampaignList.get(userCampaignList.size() - 1);
-        assertThat(testUserCampaign.getHashCode()).isEqualTo(DEFAULT_HASH_CODE);
+        assertThat(testUserCampaign.getCode()).isEqualTo(DEFAULT_CODE);
         assertThat(testUserCampaign.getAttemptQuestionCount()).isEqualTo(DEFAULT_ATTEMPT_QUESTION_COUNT);
         assertThat(testUserCampaign.getEventId()).isEqualTo(DEFAULT_EVENT_ID);
         assertThat(testUserCampaign.getEventType()).isEqualTo(DEFAULT_EVENT_TYPE);
@@ -157,10 +157,10 @@ class UserCampaignResourceIT {
 
     @Test
     @Transactional
-    void checkHashCodeIsRequired() throws Exception {
+    void checkCodeIsRequired() throws Exception {
         int databaseSizeBeforeTest = userCampaignRepository.findAll().size();
         // set the field null
-        userCampaign.setHashCode(null);
+        userCampaign.setCode(null);
 
         // Create the UserCampaign, which fails.
         UserCampaignDTO userCampaignDTO = userCampaignMapper.toDto(userCampaign);
@@ -187,7 +187,7 @@ class UserCampaignResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(userCampaign.getId().intValue())))
-            .andExpect(jsonPath("$.[*].hashCode").value(hasItem(DEFAULT_HASH_CODE)))
+            .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE)))
             .andExpect(jsonPath("$.[*].attemptQuestionCount").value(hasItem(DEFAULT_ATTEMPT_QUESTION_COUNT)))
             .andExpect(jsonPath("$.[*].eventId").value(hasItem(DEFAULT_EVENT_ID)))
             .andExpect(jsonPath("$.[*].eventType").value(hasItem(DEFAULT_EVENT_TYPE)))
@@ -207,7 +207,7 @@ class UserCampaignResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(userCampaign.getId().intValue()))
-            .andExpect(jsonPath("$.hashCode").value(DEFAULT_HASH_CODE))
+            .andExpect(jsonPath("$.code").value(DEFAULT_CODE))
             .andExpect(jsonPath("$.attemptQuestionCount").value(DEFAULT_ATTEMPT_QUESTION_COUNT))
             .andExpect(jsonPath("$.eventId").value(DEFAULT_EVENT_ID))
             .andExpect(jsonPath("$.eventType").value(DEFAULT_EVENT_TYPE))
@@ -235,7 +235,7 @@ class UserCampaignResourceIT {
         // Disconnect from session so that the updates on updatedUserCampaign are not directly saved in db
         em.detach(updatedUserCampaign);
         updatedUserCampaign
-            .hashCode(UPDATED_HASH_CODE)
+            .code(UPDATED_CODE)
             .attemptQuestionCount(UPDATED_ATTEMPT_QUESTION_COUNT)
             .eventId(UPDATED_EVENT_ID)
             .eventType(UPDATED_EVENT_TYPE)
@@ -255,7 +255,7 @@ class UserCampaignResourceIT {
         List<UserCampaign> userCampaignList = userCampaignRepository.findAll();
         assertThat(userCampaignList).hasSize(databaseSizeBeforeUpdate);
         UserCampaign testUserCampaign = userCampaignList.get(userCampaignList.size() - 1);
-        assertThat(testUserCampaign.getHashCode()).isEqualTo(UPDATED_HASH_CODE);
+        assertThat(testUserCampaign.getCode()).isEqualTo(UPDATED_CODE);
         assertThat(testUserCampaign.getAttemptQuestionCount()).isEqualTo(UPDATED_ATTEMPT_QUESTION_COUNT);
         assertThat(testUserCampaign.getEventId()).isEqualTo(UPDATED_EVENT_ID);
         assertThat(testUserCampaign.getEventType()).isEqualTo(UPDATED_EVENT_TYPE);
@@ -342,7 +342,7 @@ class UserCampaignResourceIT {
         UserCampaign partialUpdatedUserCampaign = new UserCampaign();
         partialUpdatedUserCampaign.setId(userCampaign.getId());
 
-        partialUpdatedUserCampaign.hashCode(UPDATED_HASH_CODE).eventId(UPDATED_EVENT_ID).updatedAt(UPDATED_UPDATED_AT);
+        partialUpdatedUserCampaign.code(UPDATED_CODE).eventId(UPDATED_EVENT_ID).updatedAt(UPDATED_UPDATED_AT);
 
         restUserCampaignMockMvc
             .perform(
@@ -356,7 +356,7 @@ class UserCampaignResourceIT {
         List<UserCampaign> userCampaignList = userCampaignRepository.findAll();
         assertThat(userCampaignList).hasSize(databaseSizeBeforeUpdate);
         UserCampaign testUserCampaign = userCampaignList.get(userCampaignList.size() - 1);
-        assertThat(testUserCampaign.getHashCode()).isEqualTo(UPDATED_HASH_CODE);
+        assertThat(testUserCampaign.getCode()).isEqualTo(UPDATED_CODE);
         assertThat(testUserCampaign.getAttemptQuestionCount()).isEqualTo(DEFAULT_ATTEMPT_QUESTION_COUNT);
         assertThat(testUserCampaign.getEventId()).isEqualTo(UPDATED_EVENT_ID);
         assertThat(testUserCampaign.getEventType()).isEqualTo(DEFAULT_EVENT_TYPE);
@@ -377,7 +377,7 @@ class UserCampaignResourceIT {
         partialUpdatedUserCampaign.setId(userCampaign.getId());
 
         partialUpdatedUserCampaign
-            .hashCode(UPDATED_HASH_CODE)
+            .code(UPDATED_CODE)
             .attemptQuestionCount(UPDATED_ATTEMPT_QUESTION_COUNT)
             .eventId(UPDATED_EVENT_ID)
             .eventType(UPDATED_EVENT_TYPE)
@@ -396,7 +396,7 @@ class UserCampaignResourceIT {
         List<UserCampaign> userCampaignList = userCampaignRepository.findAll();
         assertThat(userCampaignList).hasSize(databaseSizeBeforeUpdate);
         UserCampaign testUserCampaign = userCampaignList.get(userCampaignList.size() - 1);
-        assertThat(testUserCampaign.getHashCode()).isEqualTo(UPDATED_HASH_CODE);
+        assertThat(testUserCampaign.getCode()).isEqualTo(UPDATED_CODE);
         assertThat(testUserCampaign.getAttemptQuestionCount()).isEqualTo(UPDATED_ATTEMPT_QUESTION_COUNT);
         assertThat(testUserCampaign.getEventId()).isEqualTo(UPDATED_EVENT_ID);
         assertThat(testUserCampaign.getEventType()).isEqualTo(UPDATED_EVENT_TYPE);

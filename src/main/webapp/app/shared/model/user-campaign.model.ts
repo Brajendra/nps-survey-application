@@ -3,7 +3,7 @@ import { ICampaign } from 'app/shared/model/campaign.model';
 
 export interface IUserCampaign {
   id?: number;
-  hashCode?: string;
+  code?: string;
   attemptQuestionCount?: number | null;
   eventId?: string | null;
   eventType?: string | null;

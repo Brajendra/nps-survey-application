@@ -33,8 +33,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class LinkResourceIT {
 
-    private static final String DEFAULT_HASH_CODE = "AAAAAAAAAA";
-    private static final String UPDATED_HASH_CODE = "BBBBBBBBBB";
+    private static final String DEFAULT_CODE = "AAAAAAAAAA";
+    private static final String UPDATED_CODE = "BBBBBBBBBB";
 
     private static final String DEFAULT_USER_INFO = "AAAAAAAAAA";
     private static final String UPDATED_USER_INFO = "BBBBBBBBBB";
@@ -72,11 +72,7 @@ class LinkResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Link createEntity(EntityManager em) {
-        Link link = new Link()
-            .hashCode(DEFAULT_HASH_CODE)
-            .userInfo(DEFAULT_USER_INFO)
-            .createdAt(DEFAULT_CREATED_AT)
-            .updatedAt(DEFAULT_UPDATED_AT);
+        Link link = new Link().code(DEFAULT_CODE).userInfo(DEFAULT_USER_INFO).createdAt(DEFAULT_CREATED_AT).updatedAt(DEFAULT_UPDATED_AT);
         return link;
     }
 
@@ -87,11 +83,7 @@ class LinkResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Link createUpdatedEntity(EntityManager em) {
-        Link link = new Link()
-            .hashCode(UPDATED_HASH_CODE)
-            .userInfo(UPDATED_USER_INFO)
-            .createdAt(UPDATED_CREATED_AT)
-            .updatedAt(UPDATED_UPDATED_AT);
+        Link link = new Link().code(UPDATED_CODE).userInfo(UPDATED_USER_INFO).createdAt(UPDATED_CREATED_AT).updatedAt(UPDATED_UPDATED_AT);
         return link;
     }
 
@@ -114,7 +106,7 @@ class LinkResourceIT {
         List<Link> linkList = linkRepository.findAll();
         assertThat(linkList).hasSize(databaseSizeBeforeCreate + 1);
         Link testLink = linkList.get(linkList.size() - 1);
-        assertThat(testLink.getHashCode()).isEqualTo(DEFAULT_HASH_CODE);
+        assertThat(testLink.getCode()).isEqualTo(DEFAULT_CODE);
         assertThat(testLink.getUserInfo()).isEqualTo(DEFAULT_USER_INFO);
         assertThat(testLink.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testLink.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
@@ -141,10 +133,10 @@ class LinkResourceIT {
 
     @Test
     @Transactional
-    void checkHashCodeIsRequired() throws Exception {
+    void checkCodeIsRequired() throws Exception {
         int databaseSizeBeforeTest = linkRepository.findAll().size();
         // set the field null
-        link.setHashCode(null);
+        link.setCode(null);
 
         // Create the Link, which fails.
         LinkDTO linkDTO = linkMapper.toDto(link);
@@ -169,7 +161,7 @@ class LinkResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(link.getId().intValue())))
-            .andExpect(jsonPath("$.[*].hashCode").value(hasItem(DEFAULT_HASH_CODE)))
+            .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE)))
             .andExpect(jsonPath("$.[*].userInfo").value(hasItem(DEFAULT_USER_INFO)))
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
             .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())));
@@ -187,7 +179,7 @@ class LinkResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(link.getId().intValue()))
-            .andExpect(jsonPath("$.hashCode").value(DEFAULT_HASH_CODE))
+            .andExpect(jsonPath("$.code").value(DEFAULT_CODE))
             .andExpect(jsonPath("$.userInfo").value(DEFAULT_USER_INFO))
             .andExpect(jsonPath("$.createdAt").value(DEFAULT_CREATED_AT.toString()))
             .andExpect(jsonPath("$.updatedAt").value(DEFAULT_UPDATED_AT.toString()));
@@ -212,7 +204,7 @@ class LinkResourceIT {
         Link updatedLink = linkRepository.findById(link.getId()).get();
         // Disconnect from session so that the updates on updatedLink are not directly saved in db
         em.detach(updatedLink);
-        updatedLink.hashCode(UPDATED_HASH_CODE).userInfo(UPDATED_USER_INFO).createdAt(UPDATED_CREATED_AT).updatedAt(UPDATED_UPDATED_AT);
+        updatedLink.code(UPDATED_CODE).userInfo(UPDATED_USER_INFO).createdAt(UPDATED_CREATED_AT).updatedAt(UPDATED_UPDATED_AT);
         LinkDTO linkDTO = linkMapper.toDto(updatedLink);
 
         restLinkMockMvc
@@ -227,7 +219,7 @@ class LinkResourceIT {
         List<Link> linkList = linkRepository.findAll();
         assertThat(linkList).hasSize(databaseSizeBeforeUpdate);
         Link testLink = linkList.get(linkList.size() - 1);
-        assertThat(testLink.getHashCode()).isEqualTo(UPDATED_HASH_CODE);
+        assertThat(testLink.getCode()).isEqualTo(UPDATED_CODE);
         assertThat(testLink.getUserInfo()).isEqualTo(UPDATED_USER_INFO);
         assertThat(testLink.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testLink.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
@@ -310,7 +302,7 @@ class LinkResourceIT {
         Link partialUpdatedLink = new Link();
         partialUpdatedLink.setId(link.getId());
 
-        partialUpdatedLink.hashCode(UPDATED_HASH_CODE).userInfo(UPDATED_USER_INFO);
+        partialUpdatedLink.code(UPDATED_CODE).userInfo(UPDATED_USER_INFO);
 
         restLinkMockMvc
             .perform(
@@ -324,7 +316,7 @@ class LinkResourceIT {
         List<Link> linkList = linkRepository.findAll();
         assertThat(linkList).hasSize(databaseSizeBeforeUpdate);
         Link testLink = linkList.get(linkList.size() - 1);
-        assertThat(testLink.getHashCode()).isEqualTo(UPDATED_HASH_CODE);
+        assertThat(testLink.getCode()).isEqualTo(UPDATED_CODE);
         assertThat(testLink.getUserInfo()).isEqualTo(UPDATED_USER_INFO);
         assertThat(testLink.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testLink.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
@@ -342,11 +334,7 @@ class LinkResourceIT {
         Link partialUpdatedLink = new Link();
         partialUpdatedLink.setId(link.getId());
 
-        partialUpdatedLink
-            .hashCode(UPDATED_HASH_CODE)
-            .userInfo(UPDATED_USER_INFO)
-            .createdAt(UPDATED_CREATED_AT)
-            .updatedAt(UPDATED_UPDATED_AT);
+        partialUpdatedLink.code(UPDATED_CODE).userInfo(UPDATED_USER_INFO).createdAt(UPDATED_CREATED_AT).updatedAt(UPDATED_UPDATED_AT);
 
         restLinkMockMvc
             .perform(
@@ -360,7 +348,7 @@ class LinkResourceIT {
         List<Link> linkList = linkRepository.findAll();
         assertThat(linkList).hasSize(databaseSizeBeforeUpdate);
         Link testLink = linkList.get(linkList.size() - 1);
-        assertThat(testLink.getHashCode()).isEqualTo(UPDATED_HASH_CODE);
+        assertThat(testLink.getCode()).isEqualTo(UPDATED_CODE);
         assertThat(testLink.getUserInfo()).isEqualTo(UPDATED_USER_INFO);
         assertThat(testLink.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testLink.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);

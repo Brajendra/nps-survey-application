@@ -3,7 +3,7 @@ import { ICampaign } from 'app/shared/model/campaign.model';
 
 export interface ILink {
   id?: number;
-  hashCode?: string;
+  code?: string;
   userInfo?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;

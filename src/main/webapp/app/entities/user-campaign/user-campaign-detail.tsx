@@ -31,11 +31,11 @@ export const UserCampaignDetail = (props: RouteComponentProps<{ id: string }>) =
           </dt>
           <dd>{userCampaignEntity.id}</dd>
           <dt>
-            <span id="hashCode">
-              <Translate contentKey="npsSurveyApp.userCampaign.hashCode">Hash Code</Translate>
+            <span id="code">
+              <Translate contentKey="npsSurveyApp.userCampaign.code">Code</Translate>
             </span>
           </dt>
-          <dd>{userCampaignEntity.hashCode}</dd>
+          <dd>{userCampaignEntity.code}</dd>
           <dt>
             <span id="attemptQuestionCount">
               <Translate contentKey="npsSurveyApp.userCampaign.attemptQuestionCount">Attempt Question Count</Translate>
