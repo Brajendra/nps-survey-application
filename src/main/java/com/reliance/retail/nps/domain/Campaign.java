@@ -68,7 +68,7 @@ public class Campaign implements Serializable {
     @JsonIgnoreProperties(value = { "campaign" }, allowSetters = true)
     private Set<CampaignLink> campaignLinks = new HashSet<>();
 
-    @OneToMany(mappedBy = "campaign", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "campaign")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "answers", "userAnswer", "campaign" }, allowSetters = true)
     private Set<Question> questions = new HashSet<>();

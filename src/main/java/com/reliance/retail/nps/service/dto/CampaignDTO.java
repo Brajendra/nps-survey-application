@@ -37,17 +37,7 @@ public class CampaignDTO implements Serializable {
     private EventType eventType;
 
     private ChannelType channel;
-
-    private Set<Question> questions;
-
-    public Set<Question> getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(Set<Question> questions) {
-        this.questions = questions;
-    }
-
+    
     public Long getId() {
         return id;
     }
