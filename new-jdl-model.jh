@@ -32,8 +32,8 @@ entity Campaign {
     createdBy String
 }
 
-entity Link {
-	hashCode String required,
+entity CampaignLink {
+	code String required,
     userInfo String,
     createdAt LocalDate,
     updatedAt LocalDate,
@@ -81,7 +81,7 @@ entity Answer {
 }
 
 relationship OneToMany {
-    Campaign{link} to Link{campaign}
+    Campaign{campaignLink} to CampaignLink{campaign}
 }
 
 
@@ -94,7 +94,7 @@ relationship OneToMany {
 }
 
 entity UserCampaign {
-    hashCode String required,
+    code String required,
     attemptQuestionCount Integer,
     eventId String,
     eventType String,
