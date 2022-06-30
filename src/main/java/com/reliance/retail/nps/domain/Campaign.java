@@ -65,6 +65,11 @@ public class Campaign implements Serializable {
 
     @OneToMany(mappedBy = "campaign")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "campaign" }, allowSetters = true)
+    private Set<CampaignLink> campaignLinks = new HashSet<>();
+
+    @OneToMany(mappedBy = "campaign")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "answers", "userAnswer", "campaign" }, allowSetters = true)
     private Set<Question> questions = new HashSet<>();
 
@@ -215,6 +220,37 @@ public class Campaign implements Serializable {
 
     public void setChannel(ChannelType channel) {
         this.channel = channel;
+    }
+
+    public Set<CampaignLink> getCampaignLinks() {
+        return this.campaignLinks;
+    }
+
+    public void setCampaignLinks(Set<CampaignLink> campaignLinks) {
+        if (this.campaignLinks != null) {
+            this.campaignLinks.forEach(i -> i.setCampaign(null));
+        }
+        if (campaignLinks != null) {
+            campaignLinks.forEach(i -> i.setCampaign(this));
+        }
+        this.campaignLinks = campaignLinks;
+    }
+
+    public Campaign campaignLinks(Set<CampaignLink> campaignLinks) {
+        this.setCampaignLinks(campaignLinks);
+        return this;
+    }
+
+    public Campaign addCampaignLink(CampaignLink campaignLink) {
+        this.campaignLinks.add(campaignLink);
+        campaignLink.setCampaign(this);
+        return this;
+    }
+
+    public Campaign removeCampaignLink(CampaignLink campaignLink) {
+        this.campaignLinks.remove(campaignLink);
+        campaignLink.setCampaign(null);
+        return this;
     }
 
     public Set<Question> getQuestions() {

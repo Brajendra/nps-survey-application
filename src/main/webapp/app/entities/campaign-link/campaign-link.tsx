@@ -10,10 +10,10 @@ import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.cons
 import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IUserCampaign } from 'app/shared/model/user-campaign.model';
-import { getEntities, reset } from './user-campaign.reducer';
+import { ICampaignLink } from 'app/shared/model/campaign-link.model';
+import { getEntities, reset } from './campaign-link.reducer';
 
-export const UserCampaign = (props: RouteComponentProps<{ url: string }>) => {
+export const CampaignLink = (props: RouteComponentProps<{ url: string }>) => {
   const dispatch = useAppDispatch();
 
   const [paginationState, setPaginationState] = useState(
@@ -21,12 +21,12 @@ export const UserCampaign = (props: RouteComponentProps<{ url: string }>) => {
   );
   const [sorting, setSorting] = useState(false);
 
-  const userCampaignList = useAppSelector(state => state.userCampaign.entities);
-  const loading = useAppSelector(state => state.userCampaign.loading);
-  const totalItems = useAppSelector(state => state.userCampaign.totalItems);
-  const links = useAppSelector(state => state.userCampaign.links);
-  const entity = useAppSelector(state => state.userCampaign.entity);
-  const updateSuccess = useAppSelector(state => state.userCampaign.updateSuccess);
+  const campaignLinkList = useAppSelector(state => state.campaignLink.entities);
+  const loading = useAppSelector(state => state.campaignLink.loading);
+  const totalItems = useAppSelector(state => state.campaignLink.totalItems);
+  const links = useAppSelector(state => state.campaignLink.links);
+  const entity = useAppSelector(state => state.campaignLink.entity);
+  const updateSuccess = useAppSelector(state => state.campaignLink.updateSuccess);
 
   const getAllEntities = () => {
     dispatch(
@@ -96,87 +96,78 @@ export const UserCampaign = (props: RouteComponentProps<{ url: string }>) => {
 
   return (
     <div>
-      <h2 id="user-campaign-heading" data-cy="UserCampaignHeading">
-        <Translate contentKey="npsSurveyApp.userCampaign.home.title">User Campaigns</Translate>
+      <h2 id="campaign-link-heading" data-cy="CampaignLinkHeading">
+        <Translate contentKey="npsSurveyApp.campaignLink.home.title">Campaign Links</Translate>
         <div className="d-flex justify-content-end">
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} />{' '}
-            <Translate contentKey="npsSurveyApp.userCampaign.home.refreshListLabel">Refresh List</Translate>
+            <Translate contentKey="npsSurveyApp.campaignLink.home.refreshListLabel">Refresh List</Translate>
           </Button>
-          <Link to="/user-campaign/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
+          <Link to="/campaign-link/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
-            <Translate contentKey="npsSurveyApp.userCampaign.home.createLabel">Create new User Campaign</Translate>
+            <Translate contentKey="npsSurveyApp.campaignLink.home.createLabel">Create new Campaign Link</Translate>
           </Link>
         </div>
       </h2>
       <div className="table-responsive">
         <InfiniteScroll
-          dataLength={userCampaignList ? userCampaignList.length : 0}
+          dataLength={campaignLinkList ? campaignLinkList.length : 0}
           next={handleLoadMore}
           hasMore={paginationState.activePage - 1 < links.next}
           loader={<div className="loader">Loading ...</div>}
         >
-          {userCampaignList && userCampaignList.length > 0 ? (
+          {campaignLinkList && campaignLinkList.length > 0 ? (
             <Table responsive>
               <thead>
                 <tr>
                   <th className="hand" onClick={sort('id')}>
-                    <Translate contentKey="npsSurveyApp.userCampaign.id">ID</Translate> <FontAwesomeIcon icon="sort" />
+                    <Translate contentKey="npsSurveyApp.campaignLink.id">ID</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={sort('code')}>
-                    <Translate contentKey="npsSurveyApp.userCampaign.code">Code</Translate> <FontAwesomeIcon icon="sort" />
+                    <Translate contentKey="npsSurveyApp.campaignLink.code">Code</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th className="hand" onClick={sort('attemptQuestionCount')}>
-                    <Translate contentKey="npsSurveyApp.userCampaign.attemptQuestionCount">Attempt Question Count</Translate>{' '}
-                    <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('eventId')}>
-                    <Translate contentKey="npsSurveyApp.userCampaign.eventId">Event Id</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('eventType')}>
-                    <Translate contentKey="npsSurveyApp.userCampaign.eventType">Event Type</Translate> <FontAwesomeIcon icon="sort" />
+                  <th className="hand" onClick={sort('userInfo')}>
+                    <Translate contentKey="npsSurveyApp.campaignLink.userInfo">User Info</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={sort('createdAt')}>
-                    <Translate contentKey="npsSurveyApp.userCampaign.createdAt">Created At</Translate> <FontAwesomeIcon icon="sort" />
+                    <Translate contentKey="npsSurveyApp.campaignLink.createdAt">Created At</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={sort('updatedAt')}>
-                    <Translate contentKey="npsSurveyApp.userCampaign.updatedAt">Updated At</Translate> <FontAwesomeIcon icon="sort" />
+                    <Translate contentKey="npsSurveyApp.campaignLink.updatedAt">Updated At</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th>
-                    <Translate contentKey="npsSurveyApp.userCampaign.campaign">Campaign</Translate> <FontAwesomeIcon icon="sort" />
+                    <Translate contentKey="npsSurveyApp.campaignLink.campaign">Campaign</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th />
                 </tr>
               </thead>
               <tbody>
-                {userCampaignList.map((userCampaign, i) => (
+                {campaignLinkList.map((campaignLink, i) => (
                   <tr key={`entity-${i}`} data-cy="entityTable">
                     <td>
-                      <Button tag={Link} to={`/user-campaign/${userCampaign.id}`} color="link" size="sm">
-                        {userCampaign.id}
+                      <Button tag={Link} to={`/campaign-link/${campaignLink.id}`} color="link" size="sm">
+                        {campaignLink.id}
                       </Button>
                     </td>
-                    <td>{userCampaign.code}</td>
-                    <td>{userCampaign.attemptQuestionCount}</td>
-                    <td>{userCampaign.eventId}</td>
-                    <td>{userCampaign.eventType}</td>
+                    <td>{campaignLink.code}</td>
+                    <td>{campaignLink.userInfo}</td>
                     <td>
-                      {userCampaign.createdAt ? (
-                        <TextFormat type="date" value={userCampaign.createdAt} format={APP_LOCAL_DATE_FORMAT} />
+                      {campaignLink.createdAt ? (
+                        <TextFormat type="date" value={campaignLink.createdAt} format={APP_LOCAL_DATE_FORMAT} />
                       ) : null}
                     </td>
                     <td>
-                      {userCampaign.updatedAt ? (
-                        <TextFormat type="date" value={userCampaign.updatedAt} format={APP_LOCAL_DATE_FORMAT} />
+                      {campaignLink.updatedAt ? (
+                        <TextFormat type="date" value={campaignLink.updatedAt} format={APP_LOCAL_DATE_FORMAT} />
                       ) : null}
                     </td>
                     <td>
-                      {userCampaign.campaign ? <Link to={`/campaign/${userCampaign.campaign.id}`}>{userCampaign.campaign.id}</Link> : ''}
+                      {campaignLink.campaign ? <Link to={`/campaign/${campaignLink.campaign.id}`}>{campaignLink.campaign.id}</Link> : ''}
                     </td>
                     <td className="text-end">
                       <div className="btn-group flex-btn-group-container">
-                        <Button tag={Link} to={`/user-campaign/${userCampaign.id}`} color="info" size="sm" data-cy="entityDetailsButton">
+                        <Button tag={Link} to={`/campaign-link/${campaignLink.id}`} color="info" size="sm" data-cy="entityDetailsButton">
                           <FontAwesomeIcon icon="eye" />{' '}
                           <span className="d-none d-md-inline">
                             <Translate contentKey="entity.action.view">View</Translate>
@@ -184,7 +175,7 @@ export const UserCampaign = (props: RouteComponentProps<{ url: string }>) => {
                         </Button>
                         <Button
                           tag={Link}
-                          to={`/user-campaign/${userCampaign.id}/edit`}
+                          to={`/campaign-link/${campaignLink.id}/edit`}
                           color="primary"
                           size="sm"
                           data-cy="entityEditButton"
@@ -196,7 +187,7 @@ export const UserCampaign = (props: RouteComponentProps<{ url: string }>) => {
                         </Button>
                         <Button
                           tag={Link}
-                          to={`/user-campaign/${userCampaign.id}/delete`}
+                          to={`/campaign-link/${campaignLink.id}/delete`}
                           color="danger"
                           size="sm"
                           data-cy="entityDeleteButton"
@@ -215,7 +206,7 @@ export const UserCampaign = (props: RouteComponentProps<{ url: string }>) => {
           ) : (
             !loading && (
               <div className="alert alert-warning">
-                <Translate contentKey="npsSurveyApp.userCampaign.home.notFound">No User Campaigns found</Translate>
+                <Translate contentKey="npsSurveyApp.campaignLink.home.notFound">No Campaign Links found</Translate>
               </div>
             )
           )}
@@ -225,4 +216,4 @@ export const UserCampaign = (props: RouteComponentProps<{ url: string }>) => {
   );
 };
 
-export default UserCampaign;
+export default CampaignLink;
