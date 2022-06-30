@@ -6,20 +6,16 @@ import java.util.Objects;
 import javax.validation.constraints.*;
 
 /**
- * A DTO for the {@link com.reliance.retail.nps.domain.UserCampaign} entity.
+ * A DTO for the {@link com.reliance.retail.nps.domain.CampaignLink} entity.
  */
-public class UserCampaignDTO implements Serializable {
+public class CampaignLinkDTO implements Serializable {
 
     private Long id;
 
     @NotNull
     private String code;
 
-    private Integer attemptQuestionCount;
-
-    private String eventId;
-
-    private String eventType;
+    private String userInfo;
 
     private LocalDate createdAt;
 
@@ -43,28 +39,12 @@ public class UserCampaignDTO implements Serializable {
         this.code = code;
     }
 
-    public Integer getAttemptQuestionCount() {
-        return attemptQuestionCount;
+    public String getUserInfo() {
+        return userInfo;
     }
 
-    public void setAttemptQuestionCount(Integer attemptQuestionCount) {
-        this.attemptQuestionCount = attemptQuestionCount;
-    }
-
-    public String getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(String eventId) {
-        this.eventId = eventId;
-    }
-
-    public String getEventType() {
-        return eventType;
-    }
-
-    public void setEventType(String eventType) {
-        this.eventType = eventType;
+    public void setUserInfo(String userInfo) {
+        this.userInfo = userInfo;
     }
 
     public LocalDate getCreatedAt() {
@@ -96,15 +76,15 @@ public class UserCampaignDTO implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof UserCampaignDTO)) {
+        if (!(o instanceof CampaignLinkDTO)) {
             return false;
         }
 
-        UserCampaignDTO userCampaignDTO = (UserCampaignDTO) o;
+        CampaignLinkDTO campaignLinkDTO = (CampaignLinkDTO) o;
         if (this.id == null) {
             return false;
         }
-        return Objects.equals(this.id, userCampaignDTO.id);
+        return Objects.equals(this.id, campaignLinkDTO.id);
     }
 
     @Override
@@ -115,12 +95,10 @@ public class UserCampaignDTO implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
-        return "UserCampaignDTO{" +
+        return "CampaignLinkDTO{" +
             "id=" + getId() +
             ", code='" + getCode() + "'" +
-            ", attemptQuestionCount=" + getAttemptQuestionCount() +
-            ", eventId='" + getEventId() + "'" +
-            ", eventType='" + getEventType() + "'" +
+            ", userInfo='" + getUserInfo() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +
             ", campaign=" + getCampaign() +

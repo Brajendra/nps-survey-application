@@ -9,12 +9,12 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A UserCampaign.
+ * A CampaignLink.
  */
 @Entity
-@Table(name = "user_campaign")
+@Table(name = "campaign_link")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class UserCampaign implements Serializable {
+public class CampaignLink implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,14 +28,8 @@ public class UserCampaign implements Serializable {
     @Column(name = "code", nullable = false)
     private String code;
 
-    @Column(name = "attempt_question_count")
-    private Integer attemptQuestionCount;
-
-    @Column(name = "event_id")
-    private String eventId;
-
-    @Column(name = "event_type")
-    private String eventType;
+    @Column(name = "user_info")
+    private String userInfo;
 
     @Column(name = "created_at")
     private LocalDate createdAt;
@@ -43,9 +37,8 @@ public class UserCampaign implements Serializable {
     @Column(name = "updated_at")
     private LocalDate updatedAt;
 
+    @ManyToOne
     @JsonIgnoreProperties(value = { "campaignLinks", "questions", "userCampaign" }, allowSetters = true)
-    @OneToOne
-    @JoinColumn(unique = true)
     private Campaign campaign;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -54,7 +47,7 @@ public class UserCampaign implements Serializable {
         return this.id;
     }
 
-    public UserCampaign id(Long id) {
+    public CampaignLink id(Long id) {
         this.setId(id);
         return this;
     }
@@ -67,7 +60,7 @@ public class UserCampaign implements Serializable {
         return this.code;
     }
 
-    public UserCampaign code(String code) {
+    public CampaignLink code(String code) {
         this.setCode(code);
         return this;
     }
@@ -76,50 +69,24 @@ public class UserCampaign implements Serializable {
         this.code = code;
     }
 
-    public Integer getAttemptQuestionCount() {
-        return this.attemptQuestionCount;
+    public String getUserInfo() {
+        return this.userInfo;
     }
 
-    public UserCampaign attemptQuestionCount(Integer attemptQuestionCount) {
-        this.setAttemptQuestionCount(attemptQuestionCount);
+    public CampaignLink userInfo(String userInfo) {
+        this.setUserInfo(userInfo);
         return this;
     }
 
-    public void setAttemptQuestionCount(Integer attemptQuestionCount) {
-        this.attemptQuestionCount = attemptQuestionCount;
-    }
-
-    public String getEventId() {
-        return this.eventId;
-    }
-
-    public UserCampaign eventId(String eventId) {
-        this.setEventId(eventId);
-        return this;
-    }
-
-    public void setEventId(String eventId) {
-        this.eventId = eventId;
-    }
-
-    public String getEventType() {
-        return this.eventType;
-    }
-
-    public UserCampaign eventType(String eventType) {
-        this.setEventType(eventType);
-        return this;
-    }
-
-    public void setEventType(String eventType) {
-        this.eventType = eventType;
+    public void setUserInfo(String userInfo) {
+        this.userInfo = userInfo;
     }
 
     public LocalDate getCreatedAt() {
         return this.createdAt;
     }
 
-    public UserCampaign createdAt(LocalDate createdAt) {
+    public CampaignLink createdAt(LocalDate createdAt) {
         this.setCreatedAt(createdAt);
         return this;
     }
@@ -132,7 +99,7 @@ public class UserCampaign implements Serializable {
         return this.updatedAt;
     }
 
-    public UserCampaign updatedAt(LocalDate updatedAt) {
+    public CampaignLink updatedAt(LocalDate updatedAt) {
         this.setUpdatedAt(updatedAt);
         return this;
     }
@@ -149,7 +116,7 @@ public class UserCampaign implements Serializable {
         this.campaign = campaign;
     }
 
-    public UserCampaign campaign(Campaign campaign) {
+    public CampaignLink campaign(Campaign campaign) {
         this.setCampaign(campaign);
         return this;
     }
@@ -161,10 +128,10 @@ public class UserCampaign implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof UserCampaign)) {
+        if (!(o instanceof CampaignLink)) {
             return false;
         }
-        return id != null && id.equals(((UserCampaign) o).id);
+        return id != null && id.equals(((CampaignLink) o).id);
     }
 
     @Override
@@ -176,12 +143,10 @@ public class UserCampaign implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
-        return "UserCampaign{" +
+        return "CampaignLink{" +
             "id=" + getId() +
             ", code='" + getCode() + "'" +
-            ", attemptQuestionCount=" + getAttemptQuestionCount() +
-            ", eventId='" + getEventId() + "'" +
-            ", eventType='" + getEventType() + "'" +
+            ", userInfo='" + getUserInfo() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +
             "}";
