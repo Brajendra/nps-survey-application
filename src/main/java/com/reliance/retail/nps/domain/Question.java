@@ -45,7 +45,7 @@ public class Question implements Serializable {
     @Column(name = "updated_at")
     private LocalDate updatedAt;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "question" }, allowSetters = true)
     private Set<Answer> answers = new HashSet<>();
@@ -200,6 +200,7 @@ public class Question implements Serializable {
         this.setCampaign(campaign);
         return this;
     }
+
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
