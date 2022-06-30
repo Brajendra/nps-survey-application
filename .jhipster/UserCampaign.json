@@ -6,7 +6,7 @@
   "entityTableName": "user_campaign",
   "fields": [
     {
-      "fieldName": "hashCode",
+      "fieldName": "userId",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
     },
