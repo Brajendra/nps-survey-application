@@ -3,13 +3,12 @@ package com.reliance.retail.nps.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
  * A UserCampaign.
@@ -17,7 +16,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @Table(name = "user_campaign")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@EntityListeners(AuditingEntityListener.class)
 public class UserCampaign implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,12 +38,21 @@ public class UserCampaign implements Serializable {
 
     @Column(name = "event_type")
     private String eventType;
-    @CreatedDate
+
     @Column(name = "created_at")
     private LocalDate createdAt;
-    @LastModifiedDate
+
     @Column(name = "updated_at")
     private LocalDate updatedAt;
+
+    @OneToMany(mappedBy = "userCampaign")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "question", "userCampaign" }, allowSetters = true)
+    private Set<UserAnswers> userAnswers = new HashSet<>();
+
+    @JsonIgnoreProperties(value = { "userCampaign", "campaign" }, allowSetters = true)
+    @OneToOne(mappedBy = "userCampaign")
+    private CampaignLink campaignLink;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -138,6 +145,56 @@ public class UserCampaign implements Serializable {
 
     public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Set<UserAnswers> getUserAnswers() {
+        return this.userAnswers;
+    }
+
+    public void setUserAnswers(Set<UserAnswers> userAnswers) {
+        if (this.userAnswers != null) {
+            this.userAnswers.forEach(i -> i.setUserCampaign(null));
+        }
+        if (userAnswers != null) {
+            userAnswers.forEach(i -> i.setUserCampaign(this));
+        }
+        this.userAnswers = userAnswers;
+    }
+
+    public UserCampaign userAnswers(Set<UserAnswers> userAnswers) {
+        this.setUserAnswers(userAnswers);
+        return this;
+    }
+
+    public UserCampaign addUserAnswers(UserAnswers userAnswers) {
+        this.userAnswers.add(userAnswers);
+        userAnswers.setUserCampaign(this);
+        return this;
+    }
+
+    public UserCampaign removeUserAnswers(UserAnswers userAnswers) {
+        this.userAnswers.remove(userAnswers);
+        userAnswers.setUserCampaign(null);
+        return this;
+    }
+
+    public CampaignLink getCampaignLink() {
+        return this.campaignLink;
+    }
+
+    public void setCampaignLink(CampaignLink campaignLink) {
+        if (this.campaignLink != null) {
+            this.campaignLink.setUserCampaign(null);
+        }
+        if (campaignLink != null) {
+            campaignLink.setUserCampaign(this);
+        }
+        this.campaignLink = campaignLink;
+    }
+
+    public UserCampaign campaignLink(CampaignLink campaignLink) {
+        this.setCampaignLink(campaignLink);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

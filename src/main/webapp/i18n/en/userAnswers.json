@@ -21,7 +21,8 @@
       "answers": "Answers",
       "createdAt": "Created At",
       "updatedAt": "Updated At",
-      "question": "Question"
+      "question": "Question",
+      "userCampaign": "User Campaign"
     }
   }
 }

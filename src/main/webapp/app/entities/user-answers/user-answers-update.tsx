@@ -10,6 +10,8 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { IQuestion } from 'app/shared/model/question.model';
 import { getEntities as getQuestions } from 'app/entities/question/question.reducer';
+import { IUserCampaign } from 'app/shared/model/user-campaign.model';
+import { getEntities as getUserCampaigns } from 'app/entities/user-campaign/user-campaign.reducer';
 import { IUserAnswers } from 'app/shared/model/user-answers.model';
 import { getEntity, updateEntity, createEntity, reset } from './user-answers.reducer';
 
@@ -19,6 +21,7 @@ export const UserAnswersUpdate = (props: RouteComponentProps<{ id: string }>) =>
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
   const questions = useAppSelector(state => state.question.entities);
+  const userCampaigns = useAppSelector(state => state.userCampaign.entities);
   const userAnswersEntity = useAppSelector(state => state.userAnswers.entity);
   const loading = useAppSelector(state => state.userAnswers.loading);
   const updating = useAppSelector(state => state.userAnswers.updating);
@@ -33,6 +36,7 @@ export const UserAnswersUpdate = (props: RouteComponentProps<{ id: string }>) =>
     }
 
     dispatch(getQuestions({}));
+    dispatch(getUserCampaigns({}));
   }, []);
 
   useEffect(() => {
@@ -46,6 +50,7 @@ export const UserAnswersUpdate = (props: RouteComponentProps<{ id: string }>) =>
       ...userAnswersEntity,
       ...values,
       question: questions.find(it => it.id.toString() === values.question.toString()),
+      userCampaign: userCampaigns.find(it => it.id.toString() === values.userCampaign.toString()),
     };
 
     if (isNew) {
@@ -61,6 +66,7 @@ export const UserAnswersUpdate = (props: RouteComponentProps<{ id: string }>) =>
       : {
           ...userAnswersEntity,
           question: userAnswersEntity?.question?.id,
+          userCampaign: userAnswersEntity?.userCampaign?.id,
         };
 
   return (
@@ -119,6 +125,22 @@ export const UserAnswersUpdate = (props: RouteComponentProps<{ id: string }>) =>
                 <option value="" key="0" />
                 {questions
                   ? questions.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <ValidatedField
+                id="user-answers-userCampaign"
+                name="userCampaign"
+                data-cy="userCampaign"
+                label={translate('npsSurveyApp.userAnswers.userCampaign')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {userCampaigns
+                  ? userCampaigns.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.id}
                       </option>

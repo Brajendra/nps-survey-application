@@ -6,9 +6,6 @@ import java.time.LocalDate;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
  * A UserAnswers.
@@ -16,7 +13,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @Table(name = "user_answers")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@EntityListeners(AuditingEntityListener.class)
 public class UserAnswers implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -29,10 +25,10 @@ public class UserAnswers implements Serializable {
 
     @Column(name = "answers")
     private String answers;
-    @CreatedDate
+
     @Column(name = "created_at")
     private LocalDate createdAt;
-    @LastModifiedDate
+
     @Column(name = "updated_at")
     private LocalDate updatedAt;
 
@@ -40,7 +36,10 @@ public class UserAnswers implements Serializable {
     @OneToOne
     @JoinColumn(unique = true)
     private Question question;
-    
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "userAnswers", "campaignLink" }, allowSetters = true)
+    private UserCampaign userCampaign;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -106,6 +105,19 @@ public class UserAnswers implements Serializable {
 
     public UserAnswers question(Question question) {
         this.setQuestion(question);
+        return this;
+    }
+
+    public UserCampaign getUserCampaign() {
+        return this.userCampaign;
+    }
+
+    public void setUserCampaign(UserCampaign userCampaign) {
+        this.userCampaign = userCampaign;
+    }
+
+    public UserAnswers userCampaign(UserCampaign userCampaign) {
+        this.setUserCampaign(userCampaign);
         return this;
     }
 

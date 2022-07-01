@@ -30,6 +30,12 @@
       "ownerSide": true,
       "relationshipName": "question",
       "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "userCampaign",
+      "otherEntityRelationshipName": "userAnswers",
+      "relationshipName": "userCampaign",
+      "relationshipType": "many-to-one"
     }
   ],
   "service": "serviceImpl"
