@@ -7,6 +7,9 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
  * A UserCampaign.
@@ -14,6 +17,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "user_campaign")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@EntityListeners(AuditingEntityListener.class)
 public class UserCampaign implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,10 +40,10 @@ public class UserCampaign implements Serializable {
 
     @Column(name = "event_type")
     private String eventType;
-
+    @CreatedDate
     @Column(name = "created_at")
     private LocalDate createdAt;
-
+    @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDate updatedAt;
 

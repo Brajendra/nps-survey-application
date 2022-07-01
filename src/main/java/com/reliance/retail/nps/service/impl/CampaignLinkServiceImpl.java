@@ -6,6 +6,8 @@ import com.reliance.retail.nps.service.CampaignLinkService;
 import com.reliance.retail.nps.service.dto.CampaignLinkDTO;
 import com.reliance.retail.nps.service.mapper.CampaignLinkMapper;
 import java.util.Optional;
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -80,5 +82,24 @@ public class CampaignLinkServiceImpl implements CampaignLinkService {
     public void delete(Long id) {
         log.debug("Request to delete CampaignLink : {}", id);
         campaignLinkRepository.deleteById(id);
+    }
+
+
+    private String getUniqueCode() {
+        String code = getRandomString();
+        return campaignLinkRepository.existsByCode(code)
+            .map(exist -> {
+                if(exist){
+                    return getUniqueCode();
+                } else {
+                    return code;
+                }
+            }).get();
+    }
+
+
+
+    private String getRandomString() {
+        return UUID.randomUUID().toString().subSequence(0, 8).toString();
     }
 }
