@@ -136,6 +136,9 @@ export const UserAnswers = (props: RouteComponentProps<{ url: string }>) => {
                   <th>
                     <Translate contentKey="npsSurveyApp.userAnswers.question">Question</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th>
+                    <Translate contentKey="npsSurveyApp.userAnswers.userCampaign">User Campaign</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th />
                 </tr>
               </thead>
@@ -160,6 +163,13 @@ export const UserAnswers = (props: RouteComponentProps<{ url: string }>) => {
                     </td>
                     <td>
                       {userAnswers.question ? <Link to={`/question/${userAnswers.question.id}`}>{userAnswers.question.id}</Link> : ''}
+                    </td>
+                    <td>
+                      {userAnswers.userCampaign ? (
+                        <Link to={`/user-campaign/${userAnswers.userCampaign.id}`}>{userAnswers.userCampaign.id}</Link>
+                      ) : (
+                        ''
+                      )}
                     </td>
                     <td className="text-end">
                       <div className="btn-group flex-btn-group-container">

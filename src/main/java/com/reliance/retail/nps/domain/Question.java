@@ -50,7 +50,7 @@ public class Question implements Serializable {
     @JsonIgnoreProperties(value = { "question" }, allowSetters = true)
     private Set<Answer> answers = new HashSet<>();
 
-    @JsonIgnoreProperties(value = { "question" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "question", "userCampaign" }, allowSetters = true)
     @OneToOne(mappedBy = "question")
     private UserAnswers userAnswer;
 

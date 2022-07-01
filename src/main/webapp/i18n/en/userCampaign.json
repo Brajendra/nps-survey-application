@@ -24,6 +24,7 @@
       "eventType": "Event Type",
       "createdAt": "Created At",
       "updatedAt": "Updated At",
+      "userAnswers": "User Answers",
       "campaignLink": "Campaign Link"
     }
   }
