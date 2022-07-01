@@ -55,6 +55,7 @@ public class CacheConfiguration {
             createCache(cm, com.reliance.retail.nps.domain.Question.class.getName() + ".answers");
             createCache(cm, com.reliance.retail.nps.domain.Answer.class.getName());
             createCache(cm, com.reliance.retail.nps.domain.UserCampaign.class.getName());
+            createCache(cm, com.reliance.retail.nps.domain.UserCampaign.class.getName() + ".userAnswers");
             createCache(cm, com.reliance.retail.nps.domain.UserAnswers.class.getName());
             createCache(cm, com.reliance.retail.nps.domain.CampaignLink.class.getName());
             // jhipster-needle-ehcache-add-entry

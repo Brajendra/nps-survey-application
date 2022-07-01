@@ -13,5 +13,11 @@
                                  constraintName="fk_user_answers__question_id"
                                  referencedColumnNames="id"
                                  referencedTableName="question"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_campaign_id"
+                                 baseTableName="user_answers"
+                                 constraintName="fk_user_answers__user_campaign_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_campaign"/>
     </changeSet>
 </databaseChangeLog>

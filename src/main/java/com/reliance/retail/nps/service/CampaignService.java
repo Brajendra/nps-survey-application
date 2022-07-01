@@ -2,8 +2,6 @@ package com.reliance.retail.nps.service;
 
 import com.reliance.retail.nps.service.dto.CampaignDTO;
 import java.util.Optional;
-
-import com.reliance.retail.nps.service.dto.CampaignDetailDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -50,8 +48,6 @@ public interface CampaignService {
      * @return the entity.
      */
     Optional<CampaignDTO> findOne(Long id);
-
-    Optional<CampaignDetailDTO> findOneById(Long id);
 
     /**
      * Delete the "id" campaign.

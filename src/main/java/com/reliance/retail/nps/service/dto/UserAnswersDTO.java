@@ -19,6 +19,8 @@ public class UserAnswersDTO implements Serializable {
 
     private QuestionDTO question;
 
+    private UserCampaignDTO userCampaign;
+
     public Long getId() {
         return id;
     }
@@ -59,6 +61,14 @@ public class UserAnswersDTO implements Serializable {
         this.question = question;
     }
 
+    public UserCampaignDTO getUserCampaign() {
+        return userCampaign;
+    }
+
+    public void setUserCampaign(UserCampaignDTO userCampaign) {
+        this.userCampaign = userCampaign;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -89,6 +99,7 @@ public class UserAnswersDTO implements Serializable {
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +
             ", question=" + getQuestion() +
+            ", userCampaign=" + getUserCampaign() +
             "}";
     }
 }

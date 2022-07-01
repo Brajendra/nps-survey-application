@@ -60,6 +60,10 @@ export const UserAnswersDetail = (props: RouteComponentProps<{ id: string }>) =>
             <Translate contentKey="npsSurveyApp.userAnswers.question">Question</Translate>
           </dt>
           <dd>{userAnswersEntity.question ? userAnswersEntity.question.id : ''}</dd>
+          <dt>
+            <Translate contentKey="npsSurveyApp.userAnswers.userCampaign">User Campaign</Translate>
+          </dt>
+          <dd>{userAnswersEntity.userCampaign ? userAnswersEntity.userCampaign.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/user-answers" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

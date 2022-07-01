@@ -112,6 +112,10 @@ relationship OneToOne {
     CampaignLink{userCampaign} to UserCampaign{campaignLink}
 }
 
+relationship OneToMany {
+    UserCampaign{userAnswers} to UserAnswers{userCampaign}
+}
+
 relationship OneToOne {
     UserAnswers{question} to Question{userAnswer}
 }

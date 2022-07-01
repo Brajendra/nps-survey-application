@@ -38,6 +38,12 @@
   "readOnly": false,
   "relationships": [
     {
+      "otherEntityName": "userAnswers",
+      "otherEntityRelationshipName": "userCampaign",
+      "relationshipName": "userAnswers",
+      "relationshipType": "one-to-many"
+    },
+    {
       "otherEntityName": "campaignLink",
       "otherEntityRelationshipName": "userCampaign",
       "ownerSide": false,
