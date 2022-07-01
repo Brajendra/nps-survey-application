@@ -88,7 +88,7 @@ public class CampaignServiceImpl implements CampaignService {
 
     @Override
     public Optional<CampaignDetailDTO> findOneById(Long id) {
-        log.debug("Request to get Campaign By Id: {}", id);
+        log.debug("Request to get findOneById: {}", id);
         return campaignRepository
             .findById(id)
             .flatMap(campaign -> questionService.findQuestionByCampaignId(campaign.getId())
