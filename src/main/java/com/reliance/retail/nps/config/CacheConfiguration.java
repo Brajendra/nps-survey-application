@@ -48,15 +48,6 @@ public class CacheConfiguration {
             createCache(cm, com.reliance.retail.nps.domain.User.class.getName());
             createCache(cm, com.reliance.retail.nps.domain.Authority.class.getName());
             createCache(cm, com.reliance.retail.nps.domain.User.class.getName() + ".authorities");
-            createCache(cm, com.reliance.retail.nps.domain.Campaign.class.getName());
-            createCache(cm, com.reliance.retail.nps.domain.Campaign.class.getName() + ".campaignLinks");
-            createCache(cm, com.reliance.retail.nps.domain.Campaign.class.getName() + ".questions");
-            createCache(cm, com.reliance.retail.nps.domain.Question.class.getName());
-            createCache(cm, com.reliance.retail.nps.domain.Question.class.getName() + ".answers");
-            createCache(cm, com.reliance.retail.nps.domain.Answer.class.getName());
-            createCache(cm, com.reliance.retail.nps.domain.UserCampaign.class.getName());
-            createCache(cm, com.reliance.retail.nps.domain.UserAnswers.class.getName());
-            createCache(cm, com.reliance.retail.nps.domain.CampaignLink.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
