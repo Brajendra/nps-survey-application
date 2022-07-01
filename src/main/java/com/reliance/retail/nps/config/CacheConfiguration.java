@@ -48,6 +48,7 @@ public class CacheConfiguration {
             createCache(cm, com.reliance.retail.nps.domain.User.class.getName());
             createCache(cm, com.reliance.retail.nps.domain.Authority.class.getName());
             createCache(cm, com.reliance.retail.nps.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.reliance.retail.nps.domain.Analytics.class.getName());
             createCache(cm, com.reliance.retail.nps.domain.Campaign.class.getName());
             createCache(cm, com.reliance.retail.nps.domain.Campaign.class.getName() + ".campaignLinks");
             createCache(cm, com.reliance.retail.nps.domain.Campaign.class.getName() + ".questions");
