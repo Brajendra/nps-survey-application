@@ -101,7 +101,12 @@ entity UserCampaign {
 	createdAt  LocalDate,
     updatedAt  LocalDate
 }
-
+entity Customer{
+    firstName String
+}
+entity Review{
+    Rating Integer
+}
 entity UserAnswers {
     answers String
 	createdAt  LocalDate,
@@ -110,6 +115,7 @@ entity UserAnswers {
 
 relationship OneToOne {
     CampaignLink{userCampaign} to UserCampaign{campaignLink}
+    Customer{customer} to Review
 }
 
 relationship OneToOne {
@@ -124,4 +130,3 @@ relationship OneToOne {
 
 
 
-    
