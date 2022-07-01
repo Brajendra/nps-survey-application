@@ -41,11 +41,6 @@ public class CampaignLink implements Serializable {
     @Column(name = "updated_at")
     private LocalDate updatedAt;
 
-    @JsonIgnoreProperties(value = { "campaignLink" }, allowSetters = true)
-    @OneToOne
-    @JoinColumn(unique = true)
-    private UserCampaign userCampaign;
-
     @ManyToOne
     @JsonIgnoreProperties(value = { "campaignLinks", "questions" }, allowSetters = true)
     private Campaign campaign;
@@ -115,19 +110,6 @@ public class CampaignLink implements Serializable {
 
     public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public UserCampaign getUserCampaign() {
-        return this.userCampaign;
-    }
-
-    public void setUserCampaign(UserCampaign userCampaign) {
-        this.userCampaign = userCampaign;
-    }
-
-    public CampaignLink userCampaign(UserCampaign userCampaign) {
-        this.setUserCampaign(userCampaign);
-        return this;
     }
 
     public Campaign getCampaign() {

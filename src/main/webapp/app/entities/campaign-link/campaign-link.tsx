@@ -137,9 +137,6 @@ export const CampaignLink = (props: RouteComponentProps<{ url: string }>) => {
                     <Translate contentKey="npsSurveyApp.campaignLink.updatedAt">Updated At</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th>
-                    <Translate contentKey="npsSurveyApp.campaignLink.userCampaign">User Campaign</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th>
                     <Translate contentKey="npsSurveyApp.campaignLink.campaign">Campaign</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th />
@@ -164,13 +161,6 @@ export const CampaignLink = (props: RouteComponentProps<{ url: string }>) => {
                       {campaignLink.updatedAt ? (
                         <TextFormat type="date" value={campaignLink.updatedAt} format={APP_LOCAL_DATE_FORMAT} />
                       ) : null}
-                    </td>
-                    <td>
-                      {campaignLink.userCampaign ? (
-                        <Link to={`/user-campaign/${campaignLink.userCampaign.id}`}>{campaignLink.userCampaign.id}</Link>
-                      ) : (
-                        ''
-                      )}
                     </td>
                     <td>
                       {campaignLink.campaign ? <Link to={`/campaign/${campaignLink.campaign.id}`}>{campaignLink.campaign.id}</Link> : ''}

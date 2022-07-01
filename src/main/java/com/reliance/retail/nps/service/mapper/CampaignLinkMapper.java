@@ -13,14 +13,10 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface CampaignLinkMapper extends EntityMapper<CampaignLinkDTO, CampaignLink> {
-    @Mapping(target = "userCampaign", source = "userCampaign", qualifiedByName = "userCampaignId")
+
     @Mapping(target = "campaign", source = "campaign", qualifiedByName = "campaignId")
     CampaignLinkDTO toDto(CampaignLink s);
 
-    @Named("userCampaignId")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    UserCampaignDTO toDtoUserCampaignId(UserCampaign userCampaign);
 
     @Named("campaignId")
     @BeanMapping(ignoreByDefault = true)

@@ -152,10 +152,7 @@ public class UserCampaignResource {
         @org.springdoc.api.annotations.ParameterObject Pageable pageable,
         @RequestParam(required = false) String filter
     ) {
-        if ("campaignlink-is-null".equals(filter)) {
-            log.debug("REST request to get all UserCampaigns where campaignLink is null");
-            return new ResponseEntity<>(userCampaignService.findAllWhereCampaignLinkIsNull(), HttpStatus.OK);
-        }
+
         log.debug("REST request to get a page of UserCampaigns");
         Page<UserCampaignDTO> page = userCampaignService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);

@@ -70,7 +70,10 @@ public class UserCampaignServiceImpl implements UserCampaignService {
     @Transactional(readOnly = true)
     public Page<UserCampaignDTO> findAll(Pageable pageable) {
         log.debug("Request to get all UserCampaigns");
-        return userCampaignRepository.findAll(pageable).map(userCampaignMapper::toDto);
+        return userCampaignRepository.findAll(pageable)
+            .map(campaign -> {
+                return userCampaignMapper.toDto(campaign);
+            });
     }
 
     /**
@@ -80,9 +83,7 @@ public class UserCampaignServiceImpl implements UserCampaignService {
     @Transactional(readOnly = true)
     public List<UserCampaignDTO> findAllWhereCampaignLinkIsNull() {
         log.debug("Request to get all userCampaigns where CampaignLink is null");
-        return StreamSupport
-            .stream(userCampaignRepository.findAll().spliterator(), false)
-            .filter(userCampaign -> userCampaign.getCampaignLink() == null)
+        return userCampaignRepository.findAll().stream()
             .map(userCampaignMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }
