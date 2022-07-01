@@ -1,5 +1,7 @@
 package com.reliance.retail.nps.service.dto;
 
+import com.reliance.retail.nps.domain.CampaignLink;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -24,6 +26,16 @@ public class UserCampaignDTO implements Serializable {
     private LocalDate createdAt;
 
     private LocalDate updatedAt;
+
+    public CampaignLink getCampaignLink() {
+        return campaignLink;
+    }
+
+    public void setCampaignLink(CampaignLink campaignLink) {
+        this.campaignLink = campaignLink;
+    }
+
+    private CampaignLink campaignLink;
 
     public Long getId() {
         return id;

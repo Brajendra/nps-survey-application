@@ -57,11 +57,11 @@ public class UserCampaignResponseServiceImpl implements UserCampaignResponseServ
         if(responseDetails.getUserCampaign() == null) {
             throw new BadRequestAlertException("Campaign Details Required", ENTITY_NAME, "CampaignNUll");
         }
-        if(responseDetails.getUserCampaign().getCampaign() == null) {
+        if(responseDetails.getUserCampaign().getCampaignLink() == null) {
             throw new BadRequestAlertException("Campaign Required", ENTITY_NAME, "CampaignNUll");
         }
-        if(responseDetails.getUserCampaign().getCampaign().getId() == null) {
-            throw new BadRequestAlertException("Campaign Id Required", ENTITY_NAME, "IdNULL");
+        if(responseDetails.getUserCampaign().getCampaignLink().getCode() == null) {
+            throw new BadRequestAlertException("Campaign Code Required", ENTITY_NAME, "IdNULL");
         }
         if(StringUtils.isEmpty(responseDetails.getUserCampaign().getCode())) {
             throw new BadRequestAlertException("Campaign LinkID Required", ENTITY_NAME, "LinkIDNULL");
