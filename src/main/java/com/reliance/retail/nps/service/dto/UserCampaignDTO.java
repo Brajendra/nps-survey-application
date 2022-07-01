@@ -25,8 +25,6 @@ public class UserCampaignDTO implements Serializable {
 
     private LocalDate updatedAt;
 
-    private CampaignDTO campaign;
-
     public Long getId() {
         return id;
     }
@@ -83,14 +81,6 @@ public class UserCampaignDTO implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public CampaignDTO getCampaign() {
-        return campaign;
-    }
-
-    public void setCampaign(CampaignDTO campaign) {
-        this.campaign = campaign;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -123,7 +113,6 @@ public class UserCampaignDTO implements Serializable {
             ", eventType='" + getEventType() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +
-            ", campaign=" + getCampaign() +
             "}";
     }
 }

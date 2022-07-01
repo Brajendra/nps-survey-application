@@ -67,13 +67,6 @@
       "otherEntityRelationshipName": "campaign",
       "relationshipName": "question",
       "relationshipType": "one-to-many"
-    },
-    {
-      "otherEntityName": "userCampaign",
-      "otherEntityRelationshipName": "campaign",
-      "ownerSide": false,
-      "relationshipName": "userCampaign",
-      "relationshipType": "one-to-one"
     }
   ],
   "service": "serviceImpl"

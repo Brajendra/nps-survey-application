@@ -22,6 +22,7 @@
       "userInfo": "User Info",
       "createdAt": "Created At",
       "updatedAt": "Updated At",
+      "userCampaign": "User Campaign",
       "campaign": "Campaign"
     }
   }

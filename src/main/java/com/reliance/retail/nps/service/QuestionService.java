@@ -56,8 +56,6 @@ public interface QuestionService {
      */
     Optional<QuestionDTO> findOne(Long id);
 
-    Optional<List<QuestionDTO>> findQuestionByCampaignId(Long id);
-
     /**
      * Delete the "id" question.
      *

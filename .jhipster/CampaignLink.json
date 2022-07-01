@@ -30,6 +30,13 @@
   "readOnly": false,
   "relationships": [
     {
+      "otherEntityName": "userCampaign",
+      "otherEntityRelationshipName": "campaignLink",
+      "ownerSide": true,
+      "relationshipName": "userCampaign",
+      "relationshipType": "one-to-one"
+    },
+    {
       "otherEntityName": "campaign",
       "otherEntityRelationshipName": "campaignLink",
       "relationshipName": "campaign",

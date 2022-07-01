@@ -7,9 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
  * A UserCampaign.
@@ -17,7 +14,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @Table(name = "user_campaign")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@EntityListeners(AuditingEntityListener.class)
 public class UserCampaign implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,17 +36,16 @@ public class UserCampaign implements Serializable {
 
     @Column(name = "event_type")
     private String eventType;
-    @CreatedDate
+
     @Column(name = "created_at")
     private LocalDate createdAt;
-    @LastModifiedDate
+
     @Column(name = "updated_at")
     private LocalDate updatedAt;
 
-    @JsonIgnoreProperties(value = { "campaignLinks", "questions", "userCampaign" }, allowSetters = true)
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Campaign campaign;
+    @JsonIgnoreProperties(value = { "userCampaign", "campaign" }, allowSetters = true)
+    @OneToOne(mappedBy = "userCampaign")
+    private CampaignLink campaignLink;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -145,16 +140,22 @@ public class UserCampaign implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public Campaign getCampaign() {
-        return this.campaign;
+    public CampaignLink getCampaignLink() {
+        return this.campaignLink;
     }
 
-    public void setCampaign(Campaign campaign) {
-        this.campaign = campaign;
+    public void setCampaignLink(CampaignLink campaignLink) {
+        if (this.campaignLink != null) {
+            this.campaignLink.setUserCampaign(null);
+        }
+        if (campaignLink != null) {
+            campaignLink.setUserCampaign(this);
+        }
+        this.campaignLink = campaignLink;
     }
 
-    public UserCampaign campaign(Campaign campaign) {
-        this.setCampaign(campaign);
+    public UserCampaign campaignLink(CampaignLink campaignLink) {
+        this.setCampaignLink(campaignLink);
         return this;
     }
 

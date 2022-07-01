@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { IUserCampaign } from 'app/shared/model/user-campaign.model';
 import { ICampaign } from 'app/shared/model/campaign.model';
 
 export interface ICampaignLink {
@@ -7,6 +8,7 @@ export interface ICampaignLink {
   userInfo?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  userCampaign?: IUserCampaign | null;
   campaign?: ICampaign | null;
 }
 

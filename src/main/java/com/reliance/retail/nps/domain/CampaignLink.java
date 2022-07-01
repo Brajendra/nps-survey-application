@@ -7,9 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
  * A CampaignLink.
@@ -17,7 +14,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @Table(name = "campaign_link")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@EntityListeners(AuditingEntityListener.class)
 public class CampaignLink implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,15 +30,20 @@ public class CampaignLink implements Serializable {
 
     @Column(name = "user_info")
     private String userInfo;
-    @CreatedDate
+
     @Column(name = "created_at")
     private LocalDate createdAt;
-    @LastModifiedDate
+
     @Column(name = "updated_at")
     private LocalDate updatedAt;
 
+    @JsonIgnoreProperties(value = { "campaignLink" }, allowSetters = true)
+    @OneToOne
+    @JoinColumn(unique = true)
+    private UserCampaign userCampaign;
+
     @ManyToOne
-    @JsonIgnoreProperties(value = { "campaignLinks", "questions", "userCampaign" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "campaignLinks", "questions" }, allowSetters = true)
     private Campaign campaign;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -110,6 +111,19 @@ public class CampaignLink implements Serializable {
 
     public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public UserCampaign getUserCampaign() {
+        return this.userCampaign;
+    }
+
+    public void setUserCampaign(UserCampaign userCampaign) {
+        this.userCampaign = userCampaign;
+    }
+
+    public CampaignLink userCampaign(UserCampaign userCampaign) {
+        this.setUserCampaign(userCampaign);
+        return this;
     }
 
     public Campaign getCampaign() {

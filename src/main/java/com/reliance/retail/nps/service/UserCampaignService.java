@@ -1,6 +1,7 @@
 package com.reliance.retail.nps.service;
 
 import com.reliance.retail.nps.service.dto.UserCampaignDTO;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +41,12 @@ public interface UserCampaignService {
      * @return the list of entities.
      */
     Page<UserCampaignDTO> findAll(Pageable pageable);
+    /**
+     * Get all the UserCampaignDTO where CampaignLink is {@code null}.
+     *
+     * @return the {@link List} of entities.
+     */
+    List<UserCampaignDTO> findAllWhereCampaignLinkIsNull();
 
     /**
      * Get the "id" userCampaign.
