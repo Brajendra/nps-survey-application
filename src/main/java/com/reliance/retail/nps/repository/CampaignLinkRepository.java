@@ -13,5 +13,6 @@ import java.util.Optional;
 @Repository
 public interface CampaignLinkRepository extends JpaRepository<CampaignLink, Long> {
 
+    Optional<CampaignLink> findByCode(final String code);
     Optional<Boolean> existsByCode(final String code);
 }

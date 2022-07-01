@@ -19,6 +19,16 @@ public class UserAnswersDTO implements Serializable {
 
     private QuestionDTO question;
 
+    public Long getUserCampaignId() {
+        return userCampaignId;
+    }
+
+    public void setUserCampaignId(Long userCampaignId) {
+        this.userCampaignId = userCampaignId;
+    }
+
+    private Long userCampaignId;
+
     public Long getId() {
         return id;
     }

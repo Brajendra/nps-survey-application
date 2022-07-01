@@ -63,6 +63,10 @@ export const CampaignLinkDetail = (props: RouteComponentProps<{ id: string }>) =
             ) : null}
           </dd>
           <dt>
+            <Translate contentKey="npsSurveyApp.campaignLink.userCampaign">User Campaign</Translate>
+          </dt>
+          <dd>{campaignLinkEntity.userCampaign ? campaignLinkEntity.userCampaign.id : ''}</dd>
+          <dt>
             <Translate contentKey="npsSurveyApp.campaignLink.campaign">Campaign</Translate>
           </dt>
           <dd>{campaignLinkEntity.campaign ? campaignLinkEntity.campaign.id : ''}</dd>

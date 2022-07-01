@@ -9,6 +9,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -143,10 +144,15 @@ public class UserCampaignResource {
      * {@code GET  /user-campaigns} : get all the userCampaigns.
      *
      * @param pageable the pagination information.
+     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of userCampaigns in body.
      */
     @GetMapping("/user-campaigns")
-    public ResponseEntity<List<UserCampaignDTO>> getAllUserCampaigns(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
+    public ResponseEntity<List<UserCampaignDTO>> getAllUserCampaigns(
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable,
+        @RequestParam(required = false) String filter
+    ) {
+
         log.debug("REST request to get a page of UserCampaigns");
         Page<UserCampaignDTO> page = userCampaignService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);

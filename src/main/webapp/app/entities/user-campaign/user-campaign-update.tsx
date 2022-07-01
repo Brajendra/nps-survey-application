@@ -8,8 +8,8 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { ICampaign } from 'app/shared/model/campaign.model';
-import { getEntities as getCampaigns } from 'app/entities/campaign/campaign.reducer';
+import { ICampaignLink } from 'app/shared/model/campaign-link.model';
+import { getEntities as getCampaignLinks } from 'app/entities/campaign-link/campaign-link.reducer';
 import { IUserCampaign } from 'app/shared/model/user-campaign.model';
 import { getEntity, updateEntity, createEntity, reset } from './user-campaign.reducer';
 
@@ -18,7 +18,7 @@ export const UserCampaignUpdate = (props: RouteComponentProps<{ id: string }>) =
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const campaigns = useAppSelector(state => state.campaign.entities);
+  const campaignLinks = useAppSelector(state => state.campaignLink.entities);
   const userCampaignEntity = useAppSelector(state => state.userCampaign.entity);
   const loading = useAppSelector(state => state.userCampaign.loading);
   const updating = useAppSelector(state => state.userCampaign.updating);
@@ -32,7 +32,7 @@ export const UserCampaignUpdate = (props: RouteComponentProps<{ id: string }>) =
       dispatch(getEntity(props.match.params.id));
     }
 
-    dispatch(getCampaigns({}));
+    dispatch(getCampaignLinks({}));
   }, []);
 
   useEffect(() => {
@@ -45,7 +45,6 @@ export const UserCampaignUpdate = (props: RouteComponentProps<{ id: string }>) =
     const entity = {
       ...userCampaignEntity,
       ...values,
-      campaign: campaigns.find(it => it.id.toString() === values.campaign.toString()),
     };
 
     if (isNew) {
@@ -60,7 +59,6 @@ export const UserCampaignUpdate = (props: RouteComponentProps<{ id: string }>) =
       ? {}
       : {
           ...userCampaignEntity,
-          campaign: userCampaignEntity?.campaign?.id,
         };
 
   return (
@@ -133,22 +131,6 @@ export const UserCampaignUpdate = (props: RouteComponentProps<{ id: string }>) =
                 data-cy="updatedAt"
                 type="date"
               />
-              <ValidatedField
-                id="user-campaign-campaign"
-                name="campaign"
-                data-cy="campaign"
-                label={translate('npsSurveyApp.userCampaign.campaign')}
-                type="select"
-              >
-                <option value="" key="0" />
-                {campaigns
-                  ? campaigns.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/user-campaign" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

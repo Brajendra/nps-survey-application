@@ -10,7 +10,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -144,18 +143,10 @@ public class CampaignResource {
      * {@code GET  /campaigns} : get all the campaigns.
      *
      * @param pageable the pagination information.
-     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of campaigns in body.
      */
     @GetMapping("/campaigns")
-    public ResponseEntity<List<CampaignDTO>> getAllCampaigns(
-        @org.springdoc.api.annotations.ParameterObject Pageable pageable,
-        @RequestParam(required = false) String filter
-    ) {
-        if ("usercampaign-is-null".equals(filter)) {
-            log.debug("REST request to get all Campaigns where userCampaign is null");
-            return new ResponseEntity<>(campaignService.findAllWhereUserCampaignIsNull(), HttpStatus.OK);
-        }
+    public ResponseEntity<List<CampaignDTO>> getAllCampaigns(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
         log.debug("REST request to get a page of Campaigns");
         Page<CampaignDTO> page = campaignService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);

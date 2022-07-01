@@ -42,7 +42,7 @@ public class CampaignLink implements Serializable {
     private LocalDate updatedAt;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "campaignLinks", "questions", "userCampaign" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "campaignLinks", "questions" }, allowSetters = true)
     private Campaign campaign;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

@@ -47,11 +47,6 @@ public class UserCampaign implements Serializable {
     @Column(name = "updated_at")
     private LocalDate updatedAt;
 
-    @JsonIgnoreProperties(value = { "campaignLinks", "questions", "userCampaign" }, allowSetters = true)
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Campaign campaign;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -143,19 +138,6 @@ public class UserCampaign implements Serializable {
 
     public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public Campaign getCampaign() {
-        return this.campaign;
-    }
-
-    public void setCampaign(Campaign campaign) {
-        this.campaign = campaign;
-    }
-
-    public UserCampaign campaign(Campaign campaign) {
-        this.setCampaign(campaign);
-        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

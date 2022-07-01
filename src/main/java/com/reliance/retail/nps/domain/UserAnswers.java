@@ -30,18 +30,29 @@ public class UserAnswers implements Serializable {
     @Column(name = "answers")
     private String answers;
 
+    public Long getUserCampaignId() {
+        return userCampaignId;
+    }
+
+    public void setUserCampaignId(Long userCampaignId) {
+        this.userCampaignId = userCampaignId;
+    }
+
+    @Column(name = "user_campaign_id")
+    private Long userCampaignId;
     @CreatedDate
     @Column(name = "created_at")
     private LocalDate createdAt;
-
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDate updatedAt;
+
 
     @JsonIgnoreProperties(value = { "answers", "userAnswer", "campaign" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private Question question;
+
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 

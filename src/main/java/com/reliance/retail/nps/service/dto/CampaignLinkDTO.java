@@ -21,6 +21,8 @@ public class CampaignLinkDTO implements Serializable {
 
     private LocalDate updatedAt;
 
+    private UserCampaignDTO userCampaign;
+
     private CampaignDTO campaign;
 
     public Long getId() {
@@ -63,6 +65,14 @@ public class CampaignLinkDTO implements Serializable {
         this.updatedAt = updatedAt;
     }
 
+    public UserCampaignDTO getUserCampaign() {
+        return userCampaign;
+    }
+
+    public void setUserCampaign(UserCampaignDTO userCampaign) {
+        this.userCampaign = userCampaign;
+    }
+
     public CampaignDTO getCampaign() {
         return campaign;
     }
@@ -101,6 +111,7 @@ public class CampaignLinkDTO implements Serializable {
             ", userInfo='" + getUserInfo() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +
+            ", userCampaign=" + getUserCampaign() +
             ", campaign=" + getCampaign() +
             "}";
     }

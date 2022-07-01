@@ -95,13 +95,13 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Optional<List<QuestionDTO>> findQuestionByCampaignId(Long id) {
-        return questionRepository.getByCampaignId(id).map(questionMapper::toDto);
-    }
-
-    @Override
     public void delete(Long id) {
         log.debug("Request to delete Question : {}", id);
         questionRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<List<QuestionDTO>> findQuestionByCampaignId(Long id) {
+        return questionRepository.findByCampaignId(id).map(questionMapper::toDto);
     }
 }

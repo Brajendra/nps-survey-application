@@ -2,8 +2,10 @@ package com.reliance.retail.nps.service.mapper;
 
 import com.reliance.retail.nps.domain.Campaign;
 import com.reliance.retail.nps.domain.CampaignLink;
+import com.reliance.retail.nps.domain.UserCampaign;
 import com.reliance.retail.nps.service.dto.CampaignDTO;
 import com.reliance.retail.nps.service.dto.CampaignLinkDTO;
+import com.reliance.retail.nps.service.dto.UserCampaignDTO;
 import org.mapstruct.*;
 
 /**
@@ -11,8 +13,10 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface CampaignLinkMapper extends EntityMapper<CampaignLinkDTO, CampaignLink> {
+
     @Mapping(target = "campaign", source = "campaign", qualifiedByName = "campaignId")
     CampaignLinkDTO toDto(CampaignLink s);
+
 
     @Named("campaignId")
     @BeanMapping(ignoreByDefault = true)

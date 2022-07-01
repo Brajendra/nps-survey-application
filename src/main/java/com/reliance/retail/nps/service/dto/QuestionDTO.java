@@ -29,8 +29,6 @@ public class QuestionDTO implements Serializable {
 
     private CampaignDTO campaign;
 
-    private Set<Answer> answers;
-
     public Set<Answer> getAnswers() {
         return answers;
     }
@@ -39,6 +37,7 @@ public class QuestionDTO implements Serializable {
         this.answers = answers;
     }
 
+    private Set<Answer> answers;
 
     public Long getId() {
         return id;

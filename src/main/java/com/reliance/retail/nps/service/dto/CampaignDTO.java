@@ -1,13 +1,11 @@
 package com.reliance.retail.nps.service.dto;
 
-import com.reliance.retail.nps.domain.Question;
 import com.reliance.retail.nps.domain.enumeration.ActorType;
 import com.reliance.retail.nps.domain.enumeration.ChannelType;
 import com.reliance.retail.nps.domain.enumeration.EventType;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.Set;
 import javax.validation.constraints.*;
 
 /**
@@ -37,7 +35,7 @@ public class CampaignDTO implements Serializable {
     private EventType eventType;
 
     private ChannelType channel;
-    
+
     public Long getId() {
         return id;
     }

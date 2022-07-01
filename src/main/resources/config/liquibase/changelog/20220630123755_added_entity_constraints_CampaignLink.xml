@@ -8,6 +8,12 @@
     -->
     <changeSet id="20220630123755-2" author="jhipster">
 
+        <addForeignKeyConstraint baseColumnNames="user_campaign_id"
+                                 baseTableName="campaign_link"
+                                 constraintName="fk_campaign_link__user_campaign_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_campaign"/>
+
         <addForeignKeyConstraint baseColumnNames="campaign_id"
                                  baseTableName="campaign_link"
                                  constraintName="fk_campaign_link__campaign_id"

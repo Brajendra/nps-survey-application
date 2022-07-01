@@ -29,8 +29,7 @@
       "eventType": "Event Type",
       "channel": "Channel",
       "campaignLink": "Campaign Link",
-      "question": "Question",
-      "userCampaign": "User Campaign"
+      "question": "Question"
     }
   }
 }

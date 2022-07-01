@@ -1,6 +1,8 @@
 package com.reliance.retail.nps.service.impl;
 
 import com.reliance.retail.nps.domain.UserAnswers;
+import com.reliance.retail.nps.domain.UserCampaign;
+import com.reliance.retail.nps.repository.CampaignLinkRepository;
 import com.reliance.retail.nps.repository.UserAnswersRepository;
 import com.reliance.retail.nps.repository.UserCampaignRepository;
 import com.reliance.retail.nps.service.UserCampaignResponseService;
@@ -13,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,21 +30,31 @@ public class UserCampaignResponseServiceImpl implements UserCampaignResponseServ
     private final UserCampaignMapper userCampaignMapper;
     private final UserAnswersMapper userAnswersMapper;
     private final UserAnswersRepository userAnswersRepository;
+    private final CampaignLinkRepository campaignLinkRepository;
 
-    public UserCampaignResponseServiceImpl(UserCampaignRepository userCampaignRepository, UserAnswersRepository userAnswersRepository, UserCampaignMapper userCampaignMapper, UserAnswersMapper userAnswersMapper) {
+
+    public UserCampaignResponseServiceImpl(UserCampaignRepository userCampaignRepository, UserAnswersRepository userAnswersRepository, UserCampaignMapper userCampaignMapper, UserAnswersMapper userAnswersMapper, CampaignLinkRepository campaignLinkRepository) {
         this.userCampaignRepository = userCampaignRepository;
         this.userAnswersRepository = userAnswersRepository;
         this.userCampaignMapper = userCampaignMapper;
         this.userAnswersMapper = userAnswersMapper;
+        this.campaignLinkRepository = campaignLinkRepository;
     }
 
     @Override
+    @Transactional
     public boolean save(UserCampaignResponseDetailsDTO responseDetails) {
 
         validateRequestData(responseDetails);
-        userCampaignRepository.save(userCampaignMapper.toEntity(responseDetails.getUserCampaign()));
+
+
+        UserCampaign userCampaign = new UserCampaign();
+        userCampaign.setCode(responseDetails.getCode());
+        userCampaign.attemptQuestionCount(responseDetails.getAttemptQuestionCount());
+        final UserCampaign savedUserCampaign = userCampaignRepository.save(userCampaign);
         if (responseDetails.getUserAnswers() != null && !responseDetails.getUserAnswers().isEmpty()) {
             List<UserAnswers> userAnswers = responseDetails.getUserAnswers().stream().map(userAnswersDTO -> {
+                userAnswersDTO.setUserCampaignId(savedUserCampaign.getId());
                 return userAnswersMapper.toEntity(userAnswersDTO);
             }).collect(Collectors.toList());
             userAnswersRepository.saveAll(userAnswers);
@@ -53,17 +64,19 @@ public class UserCampaignResponseServiceImpl implements UserCampaignResponseServ
 
 
     private void validateRequestData(UserCampaignResponseDetailsDTO responseDetails) {
-        if(responseDetails.getUserCampaign() == null) {
-            throw new BadRequestAlertException("Campaign Details Required", ENTITY_NAME, "CampaignNUll");
+
+        if(StringUtils.isEmpty(responseDetails.getCode() )) {
+            throw new BadRequestAlertException("Campaign Code Required", ENTITY_NAME, "CampaignNUll");
         }
-        if(responseDetails.getUserCampaign().getCampaign() == null) {
-            throw new BadRequestAlertException("Campaign Required", ENTITY_NAME, "CampaignNUll");
+       Boolean exist =  campaignLinkRepository.existsByCode(responseDetails.getCode()).get();
+        if(!exist) {
+            throw new BadRequestAlertException("Campaign Code is not valid", ENTITY_NAME, "CampaignNotyValid");
         }
-        if(responseDetails.getUserCampaign().getCampaign().getId() == null) {
-            throw new BadRequestAlertException("Campaign Id Required", ENTITY_NAME, "IdNULL");
+
+        exist =  userCampaignRepository.existsByCode(responseDetails.getCode()).get();
+        if(exist) {
+            throw new BadRequestAlertException("Response already saved", ENTITY_NAME, "ResponseSaved");
         }
-        if(StringUtils.isEmpty(responseDetails.getUserCampaign().getCode())) {
-            throw new BadRequestAlertException("Campaign LinkID Required", ENTITY_NAME, "LinkIDNULL");
-        }
+
     }
 }
