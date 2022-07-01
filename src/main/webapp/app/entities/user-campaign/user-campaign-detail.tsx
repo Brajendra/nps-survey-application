@@ -74,10 +74,6 @@ export const UserCampaignDetail = (props: RouteComponentProps<{ id: string }>) =
               <TextFormat value={userCampaignEntity.updatedAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             ) : null}
           </dd>
-          <dt>
-            <Translate contentKey="npsSurveyApp.userCampaign.campaign">Campaign</Translate>
-          </dt>
-          <dd>{userCampaignEntity.campaign ? userCampaignEntity.campaign.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/user-campaign" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

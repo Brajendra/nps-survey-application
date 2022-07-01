@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { ICampaign } from 'app/shared/model/campaign.model';
+import { ICampaignLink } from 'app/shared/model/campaign-link.model';
 
 export interface IUserCampaign {
   id?: number;
@@ -9,7 +9,7 @@ export interface IUserCampaign {
   eventType?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
-  campaign?: ICampaign | null;
+  campaignLink?: ICampaignLink | null;
 }
 
 export const defaultValue: Readonly<IUserCampaign> = {};

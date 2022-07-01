@@ -60,7 +60,6 @@ public class SecurityConfiguration {
                 .antMatchers("/content/**")
                 .antMatchers("/swagger-ui/**")
                 .antMatchers("/test/**");
-
     }
 
     @Bean
@@ -90,8 +89,6 @@ public class SecurityConfiguration {
             .authorizeRequests()
             .antMatchers("/api/authenticate").permitAll()
             .antMatchers("/api/register").permitAll()
-            .antMatchers("/api/campaign/**").permitAll()
-           // .antMatchers("/api/user-answers-response/**").permitAll()
             .antMatchers("/api/activate").permitAll()
             .antMatchers("/api/account/reset-password/init").permitAll()
             .antMatchers("/api/account/reset-password/finish").permitAll()

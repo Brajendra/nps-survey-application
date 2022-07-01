@@ -143,9 +143,6 @@ export const UserCampaign = (props: RouteComponentProps<{ url: string }>) => {
                   <th className="hand" onClick={sort('updatedAt')}>
                     <Translate contentKey="npsSurveyApp.userCampaign.updatedAt">Updated At</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th>
-                    <Translate contentKey="npsSurveyApp.userCampaign.campaign">Campaign</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
                   <th />
                 </tr>
               </thead>
@@ -170,9 +167,6 @@ export const UserCampaign = (props: RouteComponentProps<{ url: string }>) => {
                       {userCampaign.updatedAt ? (
                         <TextFormat type="date" value={userCampaign.updatedAt} format={APP_LOCAL_DATE_FORMAT} />
                       ) : null}
-                    </td>
-                    <td>
-                      {userCampaign.campaign ? <Link to={`/campaign/${userCampaign.campaign.id}`}>{userCampaign.campaign.id}</Link> : ''}
                     </td>
                     <td className="text-end">
                       <div className="btn-group flex-btn-group-container">

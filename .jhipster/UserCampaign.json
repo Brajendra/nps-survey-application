@@ -38,10 +38,10 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "campaign",
+      "otherEntityName": "campaignLink",
       "otherEntityRelationshipName": "userCampaign",
-      "ownerSide": true,
-      "relationshipName": "campaign",
+      "ownerSide": false,
+      "relationshipName": "campaignLink",
       "relationshipType": "one-to-one"
     }
   ],

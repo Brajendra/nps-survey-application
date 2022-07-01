@@ -8,8 +8,6 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IUserCampaign } from 'app/shared/model/user-campaign.model';
-import { getEntities as getUserCampaigns } from 'app/entities/user-campaign/user-campaign.reducer';
 import { ICampaign } from 'app/shared/model/campaign.model';
 import { ActorType } from 'app/shared/model/enumerations/actor-type.model';
 import { EventType } from 'app/shared/model/enumerations/event-type.model';
@@ -21,7 +19,6 @@ export const CampaignUpdate = (props: RouteComponentProps<{ id: string }>) => {
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const userCampaigns = useAppSelector(state => state.userCampaign.entities);
   const campaignEntity = useAppSelector(state => state.campaign.entity);
   const loading = useAppSelector(state => state.campaign.loading);
   const updating = useAppSelector(state => state.campaign.updating);
@@ -37,8 +34,6 @@ export const CampaignUpdate = (props: RouteComponentProps<{ id: string }>) => {
     if (!isNew) {
       dispatch(getEntity(props.match.params.id));
     }
-
-    dispatch(getUserCampaigns({}));
   }, []);
 
   useEffect(() => {

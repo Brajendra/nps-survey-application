@@ -65,17 +65,13 @@ public class Campaign implements Serializable {
 
     @OneToMany(mappedBy = "campaign")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "campaign" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "userCampaign", "campaign" }, allowSetters = true)
     private Set<CampaignLink> campaignLinks = new HashSet<>();
 
     @OneToMany(mappedBy = "campaign")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "answers", "userAnswer", "campaign" }, allowSetters = true)
     private Set<Question> questions = new HashSet<>();
-
-    @JsonIgnoreProperties(value = { "campaign" }, allowSetters = true)
-    @OneToOne(mappedBy = "campaign")
-    private UserCampaign userCampaign;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -281,25 +277,6 @@ public class Campaign implements Serializable {
     public Campaign removeQuestion(Question question) {
         this.questions.remove(question);
         question.setCampaign(null);
-        return this;
-    }
-
-    public UserCampaign getUserCampaign() {
-        return this.userCampaign;
-    }
-
-    public void setUserCampaign(UserCampaign userCampaign) {
-        if (this.userCampaign != null) {
-            this.userCampaign.setCampaign(null);
-        }
-        if (userCampaign != null) {
-            userCampaign.setCampaign(this);
-        }
-        this.userCampaign = userCampaign;
-    }
-
-    public Campaign userCampaign(UserCampaign userCampaign) {
-        this.setUserCampaign(userCampaign);
         return this;
     }
 

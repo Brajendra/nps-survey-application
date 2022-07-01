@@ -3,15 +3,9 @@ package com.reliance.retail.nps.service.impl;
 import com.reliance.retail.nps.domain.Campaign;
 import com.reliance.retail.nps.repository.CampaignRepository;
 import com.reliance.retail.nps.service.CampaignService;
-import com.reliance.retail.nps.service.QuestionService;
 import com.reliance.retail.nps.service.dto.CampaignDTO;
-import com.reliance.retail.nps.service.dto.CampaignDetailDTO;
 import com.reliance.retail.nps.service.mapper.CampaignMapper;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -32,12 +26,9 @@ public class CampaignServiceImpl implements CampaignService {
 
     private final CampaignMapper campaignMapper;
 
-    private final QuestionService questionService;
-
-    public CampaignServiceImpl(CampaignRepository campaignRepository, CampaignMapper campaignMapper, QuestionService questionService) {
+    public CampaignServiceImpl(CampaignRepository campaignRepository, CampaignMapper campaignMapper) {
         this.campaignRepository = campaignRepository;
         this.campaignMapper = campaignMapper;
-        this.questionService  = questionService;
     }
 
     @Override
@@ -76,35 +67,6 @@ public class CampaignServiceImpl implements CampaignService {
     public Page<CampaignDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Campaigns");
         return campaignRepository.findAll(pageable).map(campaignMapper::toDto);
-    }
-
-    /**
-     *  Get all the campaigns where UserCampaign is {@code null}.
-     *  @return the list of entities.
-     */
-    @Transactional(readOnly = true)
-    public List<CampaignDTO> findAllWhereUserCampaignIsNull() {
-        log.debug("Request to get all campaigns where UserCampaign is null");
-        return StreamSupport
-            .stream(campaignRepository.findAll().spliterator(), false)
-            .filter(campaign -> campaign.getUserCampaign() == null)
-            .map(campaignMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
-    }
-
-    @Override
-    public Optional<CampaignDetailDTO> findOneById(Long id) {
-        log.debug("Request to get Campaign By Id: {}", id);
-        return campaignRepository
-            .findById(id)
-            .flatMap(campaign -> questionService.findQuestionByCampaignId(campaign.getId())
-                .map(questions -> {
-                    CampaignDetailDTO campaignDetails = new CampaignDetailDTO();
-                    campaignDetails.setCampaign(campaignMapper.toDto(campaign));
-                    campaignDetails.setQuestions(questions);
-                    return campaignDetails;
-                }));
-     //   return Optional.empty();
     }
 
     @Override

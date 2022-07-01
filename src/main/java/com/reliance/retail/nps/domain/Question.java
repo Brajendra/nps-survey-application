@@ -55,7 +55,7 @@ public class Question implements Serializable {
     private UserAnswers userAnswer;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "campaignLinks", "questions", "userCampaign" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "campaignLinks", "questions" }, allowSetters = true)
     private Campaign campaign;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -200,7 +200,6 @@ public class Question implements Serializable {
         this.setCampaign(campaign);
         return this;
     }
-
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
