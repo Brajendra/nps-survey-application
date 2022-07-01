@@ -6,8 +6,6 @@ import com.reliance.retail.nps.repository.CampaignLinkRepository;
 import com.reliance.retail.nps.repository.UserAnswersRepository;
 import com.reliance.retail.nps.repository.UserCampaignRepository;
 import com.reliance.retail.nps.service.UserCampaignResponseService;
-import com.reliance.retail.nps.service.dto.CampaignLinkDTO;
-import com.reliance.retail.nps.service.dto.UserCampaignDTO;
 import com.reliance.retail.nps.service.dto.UserCampaignResponseDetailsDTO;
 import com.reliance.retail.nps.service.mapper.UserAnswersMapper;
 import com.reliance.retail.nps.service.mapper.UserCampaignMapper;
@@ -17,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,9 +51,10 @@ public class UserCampaignResponseServiceImpl implements UserCampaignResponseServ
 
         UserCampaign userCampaign = userCampaignMapper.toEntity(responseDetails.getUserCampaign());
         userCampaign.setCode(responseDetails.getUserCampaign().getCode());
-        userCampaignRepository.save(userCampaign);
+        final UserCampaign savedUserCampaign = userCampaignRepository.save(userCampaign);
         if (responseDetails.getUserAnswers() != null && !responseDetails.getUserAnswers().isEmpty()) {
             List<UserAnswers> userAnswers = responseDetails.getUserAnswers().stream().map(userAnswersDTO -> {
+                userAnswersDTO.setUserCampaignId(userCampaign.getId());
                 return userAnswersMapper.toEntity(userAnswersDTO);
             }).collect(Collectors.toList());
             userAnswersRepository.saveAll(userAnswers);
