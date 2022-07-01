@@ -38,6 +38,7 @@ public class UserCampaignResponseServiceImpl implements UserCampaignResponseServ
     }
 
     @Override
+    @Transactional
     public boolean save(UserCampaignResponseDetailsDTO responseDetails) {
 
         validateRequestData(responseDetails);
