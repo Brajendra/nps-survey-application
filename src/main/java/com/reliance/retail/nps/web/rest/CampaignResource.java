@@ -188,10 +188,10 @@ public class CampaignResource {
      * @param id the id of the campaignDTO to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the campaignDTO, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/campaign/{id}")
-    public ResponseEntity<CampaignDetailDTO> getCampaigns(@PathVariable Long id) {
-        log.debug("REST request to get Campaign : {}", id);
-        Optional<CampaignDetailDTO> campaignDTO = campaignService.findOneById(id);
+    @GetMapping("/campaign/{code}")
+    public ResponseEntity<CampaignDetailDTO> getCampaigns(@PathVariable String code) {
+        log.debug("REST request to get Campaign : {}", code);
+        Optional<CampaignDetailDTO> campaignDTO = campaignService.findOneByCode(code);
         return ResponseUtil.wrapOrNotFound(campaignDTO);
     }
 }

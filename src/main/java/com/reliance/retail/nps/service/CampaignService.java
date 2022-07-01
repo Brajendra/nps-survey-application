@@ -51,7 +51,7 @@ public interface CampaignService {
      */
     Optional<CampaignDTO> findOne(Long id);
 
-    Optional<CampaignDetailDTO> findOneById(Long id);
+    Optional<CampaignDetailDTO> findOneByCode(String code);
 
     /**
      * Delete the "id" campaign.
