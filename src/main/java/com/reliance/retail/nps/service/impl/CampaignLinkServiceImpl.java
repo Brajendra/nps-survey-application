@@ -37,6 +37,7 @@ public class CampaignLinkServiceImpl implements CampaignLinkService {
     public CampaignLinkDTO save(CampaignLinkDTO campaignLinkDTO) {
         log.debug("Request to save CampaignLink : {}", campaignLinkDTO);
         CampaignLink campaignLink = campaignLinkMapper.toEntity(campaignLinkDTO);
+        campaignLink.setCode(getUniqueCode());
         campaignLink = campaignLinkRepository.save(campaignLink);
         return campaignLinkMapper.toDto(campaignLink);
     }
@@ -86,7 +87,7 @@ public class CampaignLinkServiceImpl implements CampaignLinkService {
 
 
     private String getUniqueCode() {
-        String code = getRandomString();
+        String code = getRandomString().toUpperCase();
         return campaignLinkRepository.existsByCode(code)
             .map(exist -> {
                 if(exist){
