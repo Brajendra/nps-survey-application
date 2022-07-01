@@ -40,6 +40,7 @@ public class UserAnswers implements Serializable {
     @OneToOne
     @JoinColumn(unique = true)
     private Question question;
+    
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
