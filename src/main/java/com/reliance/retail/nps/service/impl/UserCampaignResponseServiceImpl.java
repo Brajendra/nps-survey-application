@@ -1,9 +1,13 @@
 package com.reliance.retail.nps.service.impl;
 
 import com.reliance.retail.nps.domain.UserAnswers;
+import com.reliance.retail.nps.domain.UserCampaign;
+import com.reliance.retail.nps.repository.CampaignLinkRepository;
 import com.reliance.retail.nps.repository.UserAnswersRepository;
 import com.reliance.retail.nps.repository.UserCampaignRepository;
 import com.reliance.retail.nps.service.UserCampaignResponseService;
+import com.reliance.retail.nps.service.dto.CampaignLinkDTO;
+import com.reliance.retail.nps.service.dto.UserCampaignDTO;
 import com.reliance.retail.nps.service.dto.UserCampaignResponseDetailsDTO;
 import com.reliance.retail.nps.service.mapper.UserAnswersMapper;
 import com.reliance.retail.nps.service.mapper.UserCampaignMapper;
@@ -29,12 +33,15 @@ public class UserCampaignResponseServiceImpl implements UserCampaignResponseServ
     private final UserCampaignMapper userCampaignMapper;
     private final UserAnswersMapper userAnswersMapper;
     private final UserAnswersRepository userAnswersRepository;
+    private final CampaignLinkRepository campaignLinkRepository;
 
-    public UserCampaignResponseServiceImpl(UserCampaignRepository userCampaignRepository, UserAnswersRepository userAnswersRepository, UserCampaignMapper userCampaignMapper, UserAnswersMapper userAnswersMapper) {
+
+    public UserCampaignResponseServiceImpl(UserCampaignRepository userCampaignRepository, UserAnswersRepository userAnswersRepository, UserCampaignMapper userCampaignMapper, UserAnswersMapper userAnswersMapper, CampaignLinkRepository campaignLinkRepository) {
         this.userCampaignRepository = userCampaignRepository;
         this.userAnswersRepository = userAnswersRepository;
         this.userCampaignMapper = userCampaignMapper;
         this.userAnswersMapper = userAnswersMapper;
+        this.campaignLinkRepository = campaignLinkRepository;
     }
 
     @Override
@@ -42,7 +49,12 @@ public class UserCampaignResponseServiceImpl implements UserCampaignResponseServ
     public boolean save(UserCampaignResponseDetailsDTO responseDetails) {
 
         validateRequestData(responseDetails);
-        userCampaignRepository.save(userCampaignMapper.toEntity(responseDetails.getUserCampaign()));
+
+
+
+        UserCampaign userCampaign = userCampaignMapper.toEntity(responseDetails.getUserCampaign());
+        userCampaign.setCode(responseDetails.getUserCampaign().getCode());
+        userCampaignRepository.save(userCampaign);
         if (responseDetails.getUserAnswers() != null && !responseDetails.getUserAnswers().isEmpty()) {
             List<UserAnswers> userAnswers = responseDetails.getUserAnswers().stream().map(userAnswersDTO -> {
                 return userAnswersMapper.toEntity(userAnswersDTO);
@@ -57,14 +69,18 @@ public class UserCampaignResponseServiceImpl implements UserCampaignResponseServ
         if(responseDetails.getUserCampaign() == null) {
             throw new BadRequestAlertException("Campaign Details Required", ENTITY_NAME, "CampaignNUll");
         }
-        if(responseDetails.getUserCampaign().getCampaignLink() == null) {
-            throw new BadRequestAlertException("Campaign Required", ENTITY_NAME, "CampaignNUll");
+        if(StringUtils.isEmpty(responseDetails.getUserCampaign().getCode() )) {
+            throw new BadRequestAlertException("Campaign Code Required", ENTITY_NAME, "CampaignNUll");
         }
-        if(responseDetails.getUserCampaign().getCampaignLink().getCode() == null) {
-            throw new BadRequestAlertException("Campaign Code Required", ENTITY_NAME, "IdNULL");
+       Boolean exist =  campaignLinkRepository.existsByCode(responseDetails.getUserCampaign().getCode()).get();
+        if(!exist) {
+            throw new BadRequestAlertException("Campaign Code is not valid", ENTITY_NAME, "CampaignNotyValid");
         }
-        if(StringUtils.isEmpty(responseDetails.getUserCampaign().getCode())) {
-            throw new BadRequestAlertException("Campaign LinkID Required", ENTITY_NAME, "LinkIDNULL");
+
+        exist =  userCampaignRepository.existsByCode(responseDetails.getUserCampaign().getCode()).get();
+        if(exist) {
+            throw new BadRequestAlertException("Response already saved", ENTITY_NAME, "ResponseSaved");
         }
+
     }
 }

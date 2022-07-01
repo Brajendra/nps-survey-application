@@ -4,6 +4,9 @@ import java.util.List;
 
 public class UserCampaignResponseDetailsDTO {
 
+
+
+
     UserCampaignDTO userCampaign;
     List<UserAnswersDTO> userAnswers;
 
