@@ -8,6 +8,8 @@ import Answer from './answer';
 import UserCampaign from './user-campaign';
 import UserAnswers from './user-answers';
 import CampaignLink from './campaign-link';
+import Customer from './customer';
+import Review from './review';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 export default ({ match }) => {
@@ -21,6 +23,8 @@ export default ({ match }) => {
         <ErrorBoundaryRoute path={`${match.url}user-campaign`} component={UserCampaign} />
         <ErrorBoundaryRoute path={`${match.url}user-answers`} component={UserAnswers} />
         <ErrorBoundaryRoute path={`${match.url}campaign-link`} component={CampaignLink} />
+        <ErrorBoundaryRoute path={`${match.url}customer`} component={Customer} />
+        <ErrorBoundaryRoute path={`${match.url}review`} component={Review} />
         {/* jhipster-needle-add-route-path - JHipster will add routes here */}
       </Switch>
     </div>

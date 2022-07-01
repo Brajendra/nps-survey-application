@@ -13,6 +13,8 @@
         "userCampaign": "User Campaign",
         "userAnswers": "User Answers",
         "campaignLink": "Campaign Link",
+        "customer": "Customer",
+        "review": "Review",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
