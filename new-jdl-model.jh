@@ -109,7 +109,7 @@ entity UserAnswers {
 }
 
 relationship OneToOne {
-    UserCampaign{campaign} to Campaign{userCampaign}
+    CampaignLink{userCampaign} to UserCampaign{campaignLink}
 }
 
 relationship OneToOne {
