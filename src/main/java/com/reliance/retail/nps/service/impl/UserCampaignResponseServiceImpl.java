@@ -48,13 +48,13 @@ public class UserCampaignResponseServiceImpl implements UserCampaignResponseServ
         validateRequestData(responseDetails);
 
 
-
-        UserCampaign userCampaign = userCampaignMapper.toEntity(responseDetails.getUserCampaign());
-        userCampaign.setCode(responseDetails.getUserCampaign().getCode());
+        UserCampaign userCampaign = new UserCampaign();
+        userCampaign.setCode(responseDetails.getCode());
+        userCampaign.attemptQuestionCount(responseDetails.getAttemptQuestionCount());
         final UserCampaign savedUserCampaign = userCampaignRepository.save(userCampaign);
         if (responseDetails.getUserAnswers() != null && !responseDetails.getUserAnswers().isEmpty()) {
             List<UserAnswers> userAnswers = responseDetails.getUserAnswers().stream().map(userAnswersDTO -> {
-                userAnswersDTO.setUserCampaignId(userCampaign.getId());
+                userAnswersDTO.setUserCampaignId(savedUserCampaign.getId());
                 return userAnswersMapper.toEntity(userAnswersDTO);
             }).collect(Collectors.toList());
             userAnswersRepository.saveAll(userAnswers);
@@ -64,18 +64,16 @@ public class UserCampaignResponseServiceImpl implements UserCampaignResponseServ
 
 
     private void validateRequestData(UserCampaignResponseDetailsDTO responseDetails) {
-        if(responseDetails.getUserCampaign() == null) {
-            throw new BadRequestAlertException("Campaign Details Required", ENTITY_NAME, "CampaignNUll");
-        }
-        if(StringUtils.isEmpty(responseDetails.getUserCampaign().getCode() )) {
+
+        if(StringUtils.isEmpty(responseDetails.getCode() )) {
             throw new BadRequestAlertException("Campaign Code Required", ENTITY_NAME, "CampaignNUll");
         }
-       Boolean exist =  campaignLinkRepository.existsByCode(responseDetails.getUserCampaign().getCode()).get();
+       Boolean exist =  campaignLinkRepository.existsByCode(responseDetails.getCode()).get();
         if(!exist) {
             throw new BadRequestAlertException("Campaign Code is not valid", ENTITY_NAME, "CampaignNotyValid");
         }
 
-        exist =  userCampaignRepository.existsByCode(responseDetails.getUserCampaign().getCode()).get();
+        exist =  userCampaignRepository.existsByCode(responseDetails.getCode()).get();
         if(exist) {
             throw new BadRequestAlertException("Response already saved", ENTITY_NAME, "ResponseSaved");
         }

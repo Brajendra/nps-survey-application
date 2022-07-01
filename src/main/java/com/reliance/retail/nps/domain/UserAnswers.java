@@ -47,6 +47,7 @@ public class UserAnswers implements Serializable {
     @Column(name = "updated_at")
     private LocalDate updatedAt;
 
+
     @JsonIgnoreProperties(value = { "answers", "userAnswer", "campaign" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
