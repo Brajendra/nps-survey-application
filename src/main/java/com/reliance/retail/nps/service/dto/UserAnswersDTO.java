@@ -18,6 +18,7 @@ public class UserAnswersDTO implements Serializable {
     private LocalDate updatedAt;
 
     private QuestionDTO question;
+    private Long userCampaignId;
 
     public Long getId() {
         return id;
@@ -38,6 +39,15 @@ public class UserAnswersDTO implements Serializable {
     public LocalDate getCreatedAt() {
         return createdAt;
     }
+
+    public Long getUserCampaignId() {
+        return userCampaignId;
+    }
+
+    public void setUserCampaignId(Long userCampaignId) {
+        this.userCampaignId = userCampaignId;
+    }
+
 
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;

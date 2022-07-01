@@ -15,7 +15,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
  */
 @Entity
 @Table(name = "user_answers")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @EntityListeners(AuditingEntityListener.class)
 public class UserAnswers implements Serializable {
 
@@ -35,6 +35,9 @@ public class UserAnswers implements Serializable {
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDate updatedAt;
+
+    @Column(name = "user_campaign_id")
+    private Long userCampaignId;
 
     @JsonIgnoreProperties(value = { "answers", "userAnswer", "campaign" }, allowSetters = true)
     @OneToOne

@@ -5,18 +5,26 @@ import java.util.List;
 public class UserCampaignResponseDetailsDTO {
 
 
-
-
-    UserCampaignDTO userCampaign;
-    List<UserAnswersDTO> userAnswers;
-
-    public UserCampaignDTO getUserCampaign() {
-        return userCampaign;
+    public String getCode() {
+        return code;
     }
 
-    public void setUserCampaign(UserCampaignDTO userCampaign) {
-        this.userCampaign = userCampaign;
+    public void setCode(String code) {
+        this.code = code;
     }
+
+    private String code;
+
+    public Integer getAttemptQuestionCount() {
+        return attemptQuestionCount;
+    }
+
+    public void setAttemptQuestionCount(Integer attemptQuestionCount) {
+        this.attemptQuestionCount = attemptQuestionCount;
+    }
+
+    private Integer attemptQuestionCount;
+    private List<UserAnswersDTO> userAnswers;
 
     public List<UserAnswersDTO> getUserAnswers() {
         return userAnswers;
